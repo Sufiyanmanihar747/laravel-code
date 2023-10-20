@@ -112,7 +112,6 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
-                {{-- <a href="{{route('student.students')}}"><button class="mx-3 btn btn-default">Cancel</button></a> --}}
             </div>
         </div>
     {!! Form::close() !!}

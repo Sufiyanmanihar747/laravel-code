@@ -110,8 +110,7 @@
                         @enderror
                     </span>
                 </div>
-
-                <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
+             <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
             </div>
         </div>
     {!! Form::close() !!}

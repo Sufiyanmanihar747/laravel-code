@@ -12,8 +12,10 @@
         <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
     </div>
     <div class="container mt-5">
-        <div class="col-12 text-left d-flex justify-content-end align-items-center rounded" style="background-color: #1C6E9F;">
-            <a href="{{ route('students.create')}}"><button class="btn btn-success my-3">Add user</button></a>
+        <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
+            style="background-color: #1C6E9F;">
+            <a href="{{ route('students.create')}}"><button class="btn btn-warning text-white my-3 text-dark">Add
+                    student</button></a>
         </div>
         <table class="table border shadow-sm">
             <thead>
@@ -43,26 +45,36 @@
                     <td>{{$student->created_at}}</td>
                     <td>{{$student->updated_at}}</td>
                     <td>
-                        <a href="{{ route('students.edit', [$student->id]) }}"><button
-                        class="btn btn-primary">Edit</button></a>
+                        <a href="{{ route('students.edit', [$student->id]) }}"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"
+                                style="width:35px;" alt="edit"></a>
                     </td>
                     <td>
                         <form action="{{ route('students.destroy', [$student->id]) }}" method="post">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" onclick="alert('Are you sure to DELETE this Account!!')"
-                                id="showAlertBtn" class="btn btn-danger">Delete</button>
+                            <button type="submit" style="border:none;"
+                                onclick="alert('Are you sure to DELETE this Account!!')" id="showAlertBtn"><img
+                                    style="width:35px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
+                                    alt=""></button>
                         </form>
-
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
     </tbody>
     </div>
-
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

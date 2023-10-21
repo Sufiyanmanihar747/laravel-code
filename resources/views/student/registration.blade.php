@@ -17,8 +17,8 @@
         @endphp
         </pre> -->
         @csrf
-        <div class=" my-3  d-flex justify-content-center">
-            <div class="form-control p-4 col-md-6">
+        <div class=" my-2  d-flex justify-content-center">
+            <div class="form-control px-3 py-1 col-md-6">
                 <h3 class="text-center">Registration form</h3>
                 <div class="form-group">
                     <label for="fullname">Full Name</label>

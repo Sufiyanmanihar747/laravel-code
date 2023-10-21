@@ -22,7 +22,6 @@ class StudentController extends Controller
      */
     public function create()
     {
-        echo 'i am create';
         return view('student.registration');
     }
 
@@ -41,7 +40,9 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $students = Student::find($id);
+        $data = compact('students');
+        return view('student.profile')->with($data);
     }
 
     /**
@@ -57,9 +58,14 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StorePostRequest $request,$id)
     {
-        //
+        $student = Student::find($id);
+        if($student){
+            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address']);
+            $student->update($data);
+            return redirect('students');
+        }
     }
 
     /**

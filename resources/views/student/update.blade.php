@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Update </title>
+    <title>Update page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body>
+<body >
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-success" id="progressBar" style="width: 0;"></div>
     </div>
-
         {!! Form::open(['route' => ['students.update', $student->id]]) !!}
         @method('PUT')
         @csrf
-    
         <div class=" my-2  d-flex justify-content-center">
             <div class="form-control p-3 col-md-6">
                 <h3 class="text-center">Update form</h3>
@@ -61,20 +59,16 @@
 
 
                 <div class="form-control">
-                    <label for="gender">Gender</label><br>
-                    {!! Form::radio('gender',$student->gender=='Male'? 'checked':'',[
-                        'class' => 'form-control',
-                    ]) !!} Male
-    
-                    {!! Form::radio('gender',$student->gender=='Female'? 'checked':'',[
-                        'class' => 'form-control',
-                    ]) !!} Female
+                    <label for="">Gender</label><br>
+                    {!! Form::radio('gender', 'Male', $student->gender === 'Male') !!} Male
+
+                    {!! Form::radio('gender', 'Female', $student->gender === 'Female') !!} Female
                 </div>
                 <br>
               
                 <div class="form-group">
                     <label for="address">Course</label>
-                    {!! Form::text('course','',[
+                    {!! Form::text('course',$student->course,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter course',
                     ]) !!}
@@ -87,7 +81,7 @@
 
                 <div class="form-group">
                     <label for="address">Year</label>
-                    {!! Form::text('year','',[
+                    {!! Form::text('year',$student->year,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter Year',
                     ]) !!}
@@ -111,6 +105,7 @@
                     </span>
                 </div>
              <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
+             <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </div>
     {!! Form::close() !!}

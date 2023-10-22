@@ -5,18 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Requests\StorePostRequest;
+use App\Repositories\StudentRepositoryInterface;
+
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $students = Student::all();
-        $data = compact('students');
-        return view('student.student')->with($data);
+    // public function index()
+    // {
+    //     $students = Student::all();
+    //     $data = compact('students');
+    //     return view('student.student')->with($data);
+    // }
+    public function index(StudentRepositoryInterface $studentRepository) {
+        echo 'i am running';
+        $students = $studentRepository->all();
+        return view('student.student', compact('students'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

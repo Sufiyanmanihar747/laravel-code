@@ -7,14 +7,14 @@
 </head>
 
 <body>
-        {!! Form::open([
-            'url' => route('students.store'),
-            'method' => 'post',
+    {!! Form::open([
+        'url' => route('students.store'),
+        'method' => 'post',
         ]) !!}
         <!-- <pre>
-        @php
+            @php
             print_r($errors->all());
-        @endphp
+            @endphp
         </pre> -->
         @csrf
         <div class=" my-2  d-flex justify-content-center">

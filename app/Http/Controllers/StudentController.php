@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Requests\StorePostRequest;
-use App\Repositories\StudentRepositoryInterface;
+use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     $students = Student::all();
-    //     $data = compact('students');
-    //     return view('student.student')->with($data);
-    // }
+
+    protected $studentRepository;
+    public function __construct(StudentRepositoryInterface $studentRepository)
+    {
+        $this->studentRepository = $studentRepository;
+    }
+    
     public function index(StudentRepositoryInterface $studentRepository) {
-        echo 'i am running';
-        $students = $studentRepository->all();
-        return view('student.student', compact('students'));
+        // $students = $studentRepository->all();
+        // return view('student.student', compact('students'));
+        $students = Student::paginate(3); 
+        return view('student.student_table', compact('students'));
     }
     
     /**
@@ -38,7 +40,7 @@ class StudentController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address']);
-        Student::create($data);
+        $this->studentRepository->create($data);
         return redirect('students');
     }
 
@@ -47,7 +49,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $students = Student::find($id);
+        $students = $this->studentRepository->find($id);
         $data = compact('students');
         return view('student.profile')->with($data);
     }
@@ -57,7 +59,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::find($id);
+        $student = $this->studentRepository->find($id);
         $data = compact('student');
         return view('student.update')->with($data);
     }
@@ -67,10 +69,10 @@ class StudentController extends Controller
      */
     public function update(StorePostRequest $request,$id)
     {
-        $student = Student::find($id);
+        $student = $this->studentRepository->find($id);
         if($student){
             $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address']);
-            $student->update($data);
+            $this->studentRepository->update($id, $data);
             return redirect('students');
         }
     }
@@ -80,10 +82,10 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::find($id);
+        $student = $this->studentRepository->find($id);
         if($student)
         {
-            $student -> delete();
+            $this->studentRepository->delete($id);
         }
         return redirect('students');
     }

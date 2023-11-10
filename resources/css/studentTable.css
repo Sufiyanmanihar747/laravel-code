@@ -1,0 +1,21 @@
+table{
+    color: white;
+}
+.relative{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+svg{
+    width: 24px;
+}
+.flex-1{
+    display: flex;
+    position: absolute;
+    right: -905px;
+    bottom: 0px;
+}
+nav{
+    position: absolute;
+    left: 17px;
+}

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    @vite('resources/css/studentTable.css');
 </head>
 
 <body>
@@ -14,8 +15,7 @@
     <div class="container mt-5">
         <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
             style="background-color: #1C6E9F;">
-            <a href="{{ route('students.create')}}"><button class="btn btn-warning text-white my-3 text-dark">Add
-                    student</button></a>
+            <a href="{{ route('students.create')}}"><button class="btn btn-warning text-white my-3 text-dark">Add student</button></a>
         </div>
         <table class="table border shadow-sm">
             <thead>
@@ -56,24 +56,19 @@
                             <button type="submit" style="border:none;"
                                 onclick="alert('Are you sure to DELETE this Account!!')" id="showAlertBtn"><img
                                     style="width:35px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
-                                    alt=""></button>
+                                    alt="">
+                            </button>
                         </form>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
-    </tbody>
+        <div class="row">
+            <div class="col-md-12 pagination">
+                {{ $students->links() }}
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

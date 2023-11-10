@@ -19,3 +19,8 @@ nav{
     position: absolute;
     left: 17px;
 }
+.overflow{
+    display: block;
+    overflow: hidden;
+    width: 132px;
+}

@@ -19,10 +19,16 @@ class StudentController extends Controller
         $this->studentRepository = $studentRepository;
     }
     
-    public function index(StudentRepositoryInterface $studentRepository) {
+    public function index(Request $request, StudentRepositoryInterface $studentRepository) {
         // $students = $studentRepository->all();
         // return view('student.student', compact('students'));
-        $students = Student::paginate(3); 
+        // $students = Student::paginate(3); 
+        $search = $request->input('search');
+        if ($search){
+            $students = $studentRepository->search($search);
+        } else {
+            $students = $studentRepository->paginate(3);
+        }
         return view('student.student_table', compact('students'));
     }
     

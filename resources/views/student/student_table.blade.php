@@ -12,11 +12,17 @@
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
     </div>
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
-            style="background-color: #1C6E9F;">
-            <a href="{{ route('students.create')}}"><button class="btn btn-warning text-white my-3 text-dark">Add student</button></a>
-        </div>
+        style="background-image: linear-gradient(91.53deg, #1A335D 0%, #1EAAE2 100%">
+
+        <form class="form-inline my-2 my-lg-0" action="{{route('students.index')}}">
+            <input class="form-control mr-sm-2" style="width: 44rem;" name="search" type="search" placeholder="Search name" aria-label="Search">
+            <button class="btn btn-success my-2 my-sm-0 mr-5" type="submit">Search</button>
+        </form>
+        <a href="{{ route('students.create')}}"><button class="btn btn-warning text-white my-3 text-dark">Add student</button></a>
+        <img src="https://sangamcrm.com/wp-content/uploads/2021/09/Main-LOGO.png" style="width:68px;position: absolute;left: 16px;" alt="">
+    </div>
         <table class="table border shadow-sm">
             <thead>
                 <tr>
@@ -36,12 +42,12 @@
                 @foreach($students as $student)
                 <tr class="shadow-lg">
                     <td><a href="{{ route('students.show', [$student->id]) }}">{{$student->name}}</a></td>
-                    <td>{{$student->email}}</td>
+                    <td class="overflow">{{$student->email}}</td>
                     <td>{{$student->phone}}</td>
                     <td>{{$student->gender}}</td>
                     <td>{{$student->course}}</td>
                     <td>{{$student->year}}</td>
-                    <td>{{$student->address}}</td>
+                    <td class="overflow">{{$student->address}}</td>
                     <td>{{$student->created_at}}</td>
                     <td>{{$student->updated_at}}</td>
                     <td>
@@ -64,6 +70,11 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-md-12 pagination">
+                {{ $students->links() }}
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12 pagination">
                 {{ $students->links() }}

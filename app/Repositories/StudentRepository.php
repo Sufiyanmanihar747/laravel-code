@@ -32,4 +32,7 @@ class StudentRepository implements StudentRepositoryInterface{
     public function paginate($page) {
         return Student::paginate($page);
     }
+    public function search($search) {
+        return Student::where('name', 'like', '%' . $search . '%')->paginate(3);;
+    }
 }

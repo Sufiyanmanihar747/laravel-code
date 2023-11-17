@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
             $table->string('name')->nullable();
+            $table->id();
             $table->string('email')->nullable();
             $table->integer('phone')->nullable();
             $table->string('gender')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+    // php artisan make:migration add_your_column_name_to_your_table_name --table=your_table_name
     /**
      * Reverse the migrations.
      */

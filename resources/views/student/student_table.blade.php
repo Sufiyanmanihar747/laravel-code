@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    {{-- <pre>
+    </pre> --}}
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
     </div>
@@ -27,7 +29,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th> Email</th>
+                    <th>Email</th>
                     <th>Phone</th>
                     <th>Gender</th>
                     <th>Course</th>
@@ -67,7 +69,10 @@
                         </form>
                     </td>
                 </tr>
+                {{-- @ddd($student); --}}
                 @endforeach
+                {{-- @dd($student); --}}
+                {{-- {{ddd('dump my article',$student);}} --}}
             </tbody>
         </table>
         <div class="row">

@@ -14,6 +14,7 @@ class StudentController extends Controller
      */
 
     protected $studentRepository;
+    
     public function __construct(StudentRepositoryInterface $studentRepository)
     {
         $this->studentRepository = $studentRepository;
@@ -24,11 +25,13 @@ class StudentController extends Controller
         // return view('student.student', compact('students'));
         // $students = Student::paginate(3); 
         $search = $request->input('search');
-        if ($search){
+        if($search){
             $students = $studentRepository->search($search);
-        } else {
-            $students = $studentRepository->paginate(3);
+        } 
+        else{
+            $students = $studentRepository->paginate(5);
         }
+        // ddd($students);
         return view('student.student_table', compact('students'));
     }
     
@@ -45,7 +48,15 @@ class StudentController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address']);
+        $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
+        if ($request->hasFile('image')) 
+        {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs('public/images', $imageName);
+            $data['image'] = $imageName;
+        }
+        // @dump($image, $data, $request);
         $this->studentRepository->create($data);
         return redirect('students');
     }
@@ -77,7 +88,13 @@ class StudentController extends Controller
     {
         $student = $this->studentRepository->find($id);
         if($student){
-            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address']);
+            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
+            if ($request->hasFile('image')){
+                $image = $request->file('image');
+                $imageName = $image->getClientOriginalName();
+                $path = $request->file('image')->storeAs('public/images', $imageName);
+                $data['image'] = $imageName;
+            }
             $this->studentRepository->update($id, $data);
             return redirect('students');
         }
@@ -91,6 +108,11 @@ class StudentController extends Controller
         $student = $this->studentRepository->find($id);
         if($student)
         {
+            // @dd($student);
+            $imagePath = public_path("storage/images/".$student->image);
+            if($imagePath){
+                unlink($imagePath);
+            }
             $this->studentRepository->delete($id);
         }
         return redirect('students');

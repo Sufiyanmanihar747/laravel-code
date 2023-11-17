@@ -7,10 +7,15 @@
 </head>
 
 <body >
+    {{-- @dd($student); --}}
+
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-success" id="progressBar" style="width: 0;"></div>
     </div>
-        {!! Form::open(['route' => ['students.update', $student->id]]) !!}
+        {!! Form::open([
+            'route' => ['students.update', $student->id], 
+            'files' => 'true'
+        ]) !!}
         @method('PUT')
         @csrf
         <div class=" my-2  d-flex justify-content-center">
@@ -103,6 +108,14 @@
                         {{$message}}
                         @enderror
                     </span>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image</label><br>
+                    <div>{{$student->image}}</div>
+                    {!! Form::file('image',[
+                        'class' => 'form-control',
+                        'accept' => 'image/*'
+                    ]) !!}
                 </div>
              <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
              <button type="reset" class="btn btn-secondary">Reset</button>

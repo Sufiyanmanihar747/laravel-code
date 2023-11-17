@@ -5,9 +5,14 @@
     @vite('resources/css/profile.css');
 </head>
 <body>
+    <pre>
+    <?php
+    // print_r($students);
+    ?>
+    </pre>
     <div class="profile-container" style="background-color:#1C6E9F;">
         <button class="close-btn"><a href="{{route('students.index');}}">&times;</a></button>
-        <img class="profile-image" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Profile Image">
+        <img class="profile-image" src="{{ url('storage/images/'.$students->image) }}" alt="Profile Image"/>
         <div class="profile-details">
             <h2>{{$students->name}}</h2>
             <p><b>Email:</b>  {{$students->email}}</p>

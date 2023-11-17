@@ -9,6 +9,7 @@
 <body>
     {!! Form::open([
         'url' => route('students.store'),
+        'files' => 'true',
         'method' => 'post',
         ]) !!}
         <!-- <pre>
@@ -99,6 +100,18 @@
                         {{$message}}
                         @enderror
                     </span>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image</label>
+                    {!! Form::file('image',[
+                        'class' => 'form-control',
+                        'accept' => "image/*"
+                    ]) !!}
+                    {{-- <span class="text-danger">
+                        @error('Image')
+                        {{$message}}
+                        @enderror
+                    </span> --}}
                 </div>
                 <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
                 <button type="reset" class="mx-3 btn btn-secondary">Reset</button>

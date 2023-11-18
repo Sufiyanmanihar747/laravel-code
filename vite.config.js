@@ -15,7 +15,7 @@ export default defineConfig({
         }),
     ],
     build:{
-        outDir: 'public',
+        outDir: 'public/assets',
 
         // cssCodeSplit: true,
         // rollupOptions: {

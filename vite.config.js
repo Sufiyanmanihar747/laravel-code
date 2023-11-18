@@ -16,5 +16,12 @@ export default defineConfig({
     ],
     build:{
         outDir: 'public',
+
+        // cssCodeSplit: true,
+        // rollupOptions: {
+        //   output: {
+        //     entryFileNames: 'css/[name].[hash].css',
+        //   },
+        // },
     },
 });

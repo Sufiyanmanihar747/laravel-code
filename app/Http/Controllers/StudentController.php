@@ -32,7 +32,7 @@ class StudentController extends Controller
             $students = $studentRepository->paginate(5);
         }
         // ddd($students);
-        return view('student.student_table', compact('students'));
+        return view('student.index', compact('students'));
     }
     
     /**
@@ -40,7 +40,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.registration');
+        return view('student.create');
     }
 
     /**
@@ -68,7 +68,7 @@ class StudentController extends Controller
     {
         $students = $this->studentRepository->find($id);
         $data = compact('students');
-        return view('student.profile')->with($data);
+        return view('student.show')->with($data);
     }
 
     /**
@@ -78,7 +78,7 @@ class StudentController extends Controller
     {
         $student = $this->studentRepository->find($id);
         $data = compact('student');
-        return view('student.update')->with($data);
+        return view('student.edit')->with($data);
     }
 
     /**

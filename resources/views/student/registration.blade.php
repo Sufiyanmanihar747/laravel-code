@@ -105,7 +105,8 @@
                     <label for="image">Upload Image</label>
                     {!! Form::file('image',[
                         'class' => 'form-control',
-                        'accept' => "image/*"
+                        'accept' => "image/*",
+                        'files' => "true"
                     ]) !!}
                     {{-- <span class="text-danger">
                         @error('Image')

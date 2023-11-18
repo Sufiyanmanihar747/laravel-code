@@ -1,0 +1,22 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/profile.css": {
+    "file": "assets/profile-28d7eed7.css",
+    "isEntry": true,
+    "src": "resources/css/profile.css"
+  },
+  "resources/css/studentTable.css": {
+    "file": "assets/studentTable-0287b0b3.css",
+    "isEntry": true,
+    "src": "resources/css/studentTable.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-22752a76.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}

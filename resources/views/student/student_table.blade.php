@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    @vite('resources/css/studentTable.css');
+    {{-- @vite('resources/css/studentTable.css'); --}}
+    <link rel="stylesheet" href="{{ asset('assets/studentTable-0287b0b3.css')}}">
 </head>
 
 <body>
@@ -55,7 +56,7 @@
                     <td>
                         <a href="{{ route('students.edit', [$student->id]) }}"><img
                                 src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"
-                                style="width:35px;" alt="edit"></a>
+                                style="width:30px;" alt="edit"></a>
                     </td>
                     <td>
                         <form action="{{ route('students.destroy', [$student->id]) }}" method="post">
@@ -63,7 +64,7 @@
                             @csrf
                             <button type="submit" style="border:none;"
                                 onclick="alert('Are you sure to DELETE this Account!!')" id="showAlertBtn"><img
-                                    style="width:35px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
+                                    style="width:30px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
                                     alt="">
                             </button>
                         </form>

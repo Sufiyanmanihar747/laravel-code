@@ -5,12 +5,12 @@
     "src": "resources/css/app.css"
   },
   "resources/css/profile.css": {
-    "file": "assets/profile-28d7eed7.css",
+    "file": "show.css",
     "isEntry": true,
     "src": "resources/css/profile.css"
   },
   "resources/css/studentTable.css": {
-    "file": "assets/studentTable-0287b0b3.css",
+    "file": "index.css",
     "isEntry": true,
     "src": "resources/css/studentTable.css"
   },

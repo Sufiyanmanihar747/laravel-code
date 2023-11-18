@@ -17,11 +17,16 @@ export default defineConfig({
     build:{
         outDir: 'public/assets',
 
-        // cssCodeSplit: true,
-        // rollupOptions: {
-        //   output: {
-        //     entryFileNames: 'css/[name].[hash].css',
-        //   },
-        // },
+        rollupOptions: {
+            output: {
+              assetFileNames: (assetInfo) => {
+                if (assetInfo.name == 'studentTable.css')
+                  return 'index.css';
+                if (assetInfo.name == 'profile.css')
+                  return 'show.css';
+                return assetInfo.name;
+              },
+            }
+        }
     },
 });

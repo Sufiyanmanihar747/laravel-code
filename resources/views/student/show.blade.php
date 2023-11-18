@@ -2,8 +2,7 @@
 <html>
 <head>
     <title>My Profile</title>
-    {{-- @vite('public/assets/profile.css'); --}}
-    <link rel="stylesheet" href="{{ asset('assets/assets/profile-28d7eed7.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/show.css') }}">
 </head>
 <body>
     <pre>

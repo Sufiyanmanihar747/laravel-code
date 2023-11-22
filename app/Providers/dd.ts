@@ -16,3 +16,5 @@ This directory is used to store files generated and managed by your application.
 storage/framework:
 This directory contains temporary files and cache used by Laravel. For instance, Laravel uses the storage/framework/cache directory to store cached views and the storage/framework/sessions directory to store session files.
 
+service provider
+relation ship

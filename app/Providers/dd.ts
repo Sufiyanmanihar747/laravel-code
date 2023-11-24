@@ -18,3 +18,5 @@ This directory contains temporary files and cache used by Laravel. For instance,
 
 service provider
 relation ship
+
+dollar, custom name, extra export

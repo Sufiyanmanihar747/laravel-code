@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{asset('build/assets/passwordEye-d1ca05e2.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
 <body>
@@ -78,5 +79,12 @@
             @yield('content')
         </main>
     </div>
+    {{-- <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script> --}}
+  {{-- C:\laravel\project_for_relations\public\build\assets\eye-bd7fbfc9.js --}}
+  <script  src="{{ asset('build/assets/eye-d36b6d3a.js') }}"></script>
+  <script src="{{ asset('build/assets/jquery-458386b8.js') }}"></script>
 </body>
 </html>

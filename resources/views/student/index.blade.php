@@ -12,8 +12,6 @@
 </head>
 
 <body>
-    {{-- <pre>
-    </pre> --}}
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
     </div>

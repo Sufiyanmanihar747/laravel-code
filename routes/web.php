@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +13,8 @@ use App\Http\Controllers\StudentController;
 |
 */
 
-Route::resource('students' , StudentController::class)->middleware('auth');
 Auth::routes();
+Route::resource('students' , StudentController::class)->middleware('auth');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('logout', LoginController::class,'logout');
+

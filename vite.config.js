@@ -7,11 +7,24 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/js/app.js',
-                'resources/js/eye.js',
                 'resources/css/passwordEye.css',
-                'resources/js/jquery.js',
+                'resources/js/eye.js',
             ],
             refresh: true,
         }),
     ],
+
+    build:{
+        outDir: 'public/assets',
+
+        rollupOptions: {
+          output: {
+            assetFileNames: (assetInfo) => {
+              if (assetInfo.name == 'eye.js')
+                return 'eye.js';
+              return assetInfo.name;
+            },
+          }
+        }
+  }
 });

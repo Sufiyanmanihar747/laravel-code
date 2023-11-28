@@ -16,5 +16,5 @@ use App\Http\Controllers\StudentController;
 Auth::routes();
 Route::resource('students' , StudentController::class)->middleware('auth');
 
-Route::get('logout', LoginController::class,'logout');
+// Route::get('logout', LoginController::class,'logout');
 

@@ -1,4 +1,3 @@
-$(function () {
         $("#toggle").on("click", function () {
             $('i').toggleClass('bi-eye-fill bi-eye-slash-fill');
             if ($('#password').attr("type") == 'password') {
@@ -12,6 +11,5 @@ $(function () {
                 $('i').attr('title', 'show password');
             }
         });
-    })(jQuery);
 console.log('hello');
 console.log('hello');

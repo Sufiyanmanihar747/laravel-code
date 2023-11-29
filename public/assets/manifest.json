@@ -1,21 +1,31 @@
 {
+  "resources/css/app.css": {
+    "file": "js/app2.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
   "resources/css/passwordEye.css": {
-    "file": "passwordEye.css",
+    "file": "css/passwordEye.css",
     "isEntry": true,
     "src": "resources/css/passwordEye.css"
   },
-  "resources/js/app.js": {
-    "file": "assets/app-4a1a0c12.js",
+  "resources/css/profile.css": {
+    "file": "css/profile.css",
     "isEntry": true,
-    "src": "resources/js/app.js"
+    "src": "resources/css/profile.css"
+  },
+  "resources/css/studentTable.css": {
+    "file": "css/studentTable.css",
+    "isEntry": true,
+    "src": "resources/css/studentTable.css"
   },
   "resources/js/eye.js": {
-    "file": "assets/eye-5d1c054b.js",
+    "file": "js/eye.js",
     "isEntry": true,
     "src": "resources/js/eye.js"
   },
   "resources/sass/app.scss": {
-    "file": "app.css",
+    "file": "css/app.css",
     "isEntry": true,
     "src": "resources/sass/app.scss"
   }

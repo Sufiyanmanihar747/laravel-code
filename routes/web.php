@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,4 @@ use App\Http\Controllers\StudentController;
 
 Auth::routes();
 Route::resource('students' , StudentController::class)->middleware('auth');
-
-// Route::get('logout', LoginController::class,'logout');
-
+Route::resource('teachers', TeacherController::class);

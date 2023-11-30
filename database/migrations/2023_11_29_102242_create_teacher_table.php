@@ -11,24 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('teacher', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->integer('phone')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('course')->nullable();
-            $table->string('year')->nullable();
-            $table->string('address')->nullable();
+            $table->string('subject')->nullable();
             $table->timestamps();
         });
     }
-    // php artisan make:migration add_your_column_name_to_your_table_name --table=your_table_name
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('teacher');
     }
 };

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Requests\StorePostRequest;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
-
+use App\Models\Teacher;
 class StudentController extends Controller
 {
     /**
@@ -32,7 +32,8 @@ class StudentController extends Controller
             $students = $studentRepository->paginate(5);
         }
         // ddd($students);
-        return view('student.index', compact('students'));
+        $teachers = Teacher::all();
+        return view('student.index', compact('students'), compact('teachers'));
     }
     
     /**
@@ -40,7 +41,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.create');
+        $teachers = Teacher::all();
+        return view('student.create', compact('teachers'));
     }
 
     /**
@@ -49,6 +51,7 @@ class StudentController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
+        $data['teacher_id'] = $request->input('teacher_id');
         if ($request->hasFile('image')) 
         {
             $image = $request->file('image');
@@ -76,9 +79,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
+        $teachers = Teacher::all();
         $student = $this->studentRepository->find($id);
-        $data = compact('student');
-        return view('student.edit')->with($data);
+        return view('student.edit', compact('student'), compact('teachers'));
     }
 
     /**
@@ -88,7 +91,7 @@ class StudentController extends Controller
     {
         $student = $this->studentRepository->find($id);
         if($student){
-            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
+            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image', 'teacher_id']);
             if ($request->hasFile('image')){
                 $image = $request->file('image');
                 $imageName = $image->getClientOriginalName();

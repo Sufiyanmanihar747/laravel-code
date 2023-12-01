@@ -36,9 +36,10 @@
                     <th>Course</th>
                     <th>Year</th>
                     <th>Address</th>
+                    <th>Teacher</th>
                     <th>Created at</th>
                     <th>Updated at</th>
-                    <th>Actions</th>
+                    <th colspan="2">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,12 +52,14 @@
                     <td>{{$student->course}}</td>
                     <td>{{$student->year}}</td>
                     <td class="overflow">{{$student->address}}</td>
+                    <td>
+                        <a href="{{route('teachers.show', [$student->teacher->id])}}">{{$student->teacher->name}}  </a>
+                    </td>
                     <td>{{$student->created_at}}</td>
                     <td>{{$student->updated_at}}</td>
                     <td>
-                        <a href="{{ route('students.edit', [$student->id]) }}"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"
-                                style="width:30px;" alt="edit"></a>
+                        <a href="{{route('students.edit', [$student->id])}}">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"style="width:30px;" alt="edit"></a>
                     </td>
                     <td>
                         <form action="{{ route('students.destroy', [$student->id]) }}" method="post">

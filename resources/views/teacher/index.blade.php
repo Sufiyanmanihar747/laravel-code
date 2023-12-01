@@ -32,6 +32,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Subject</th>
+                    <th>Student Name</th>
                     <th>Created at</th>
                     <th>Updated at</th>
                     <th colspan="2">Actions</th>
@@ -43,6 +44,13 @@
                     <td><a href="{{ route('teachers.show', [$teacher->id]) }}">{{$teacher->name}}</a></td>
                     <td>{{$teacher->email}}</td>
                     <td>{{$teacher->subject}}</td>
+                    <td>
+                        @if ($teacher->student)
+                            <a href="{{ route('students.show', [$teacher->student->id]) }}">{{$teacher->student->name}}</a>
+                        @else
+                            No student
+                        @endif
+                    </td>
                     <td>{{$teacher->created_at}}</td>
                     <td>{{$teacher->updated_at}}</td>
                     <td>

@@ -35,4 +35,9 @@ class TeacherRepository implements TeacherRepositoryInterface{
     public function search($search) {
         return Teacher::where('name', 'like', '%' . $search . '%')->paginate(3);;
     }
+
+    public function with($relations)
+    {
+        return Teacher::with($relations);
+    }
 }

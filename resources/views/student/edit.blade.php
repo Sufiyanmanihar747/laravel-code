@@ -70,7 +70,20 @@
                     {!! Form::radio('gender', 'Female', $student->gender === 'Female') !!} Female
                 </div>
                 <br>
-              
+                <div class="form-group">
+                    <label for="teacher_id">Select Teacher</label>
+                    {{-- <div><pre>{{print_r($teachers)}}</pre></div> --}}
+                    <div>{{$student->teacher->name}}</div>
+                    {!! Form::select('teacher_id', $teachers->pluck('name', 'id'), null, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Select a teacher',
+                    ]) !!}
+                    <span class="text-danger">
+                        @error('teacher_id')
+                        {{$message}}
+                        @enderror
+                    </span>
+                </div>
                 <div class="form-group">
                     <label for="address">Course</label>
                     {!! Form::text('course',$student->course,[

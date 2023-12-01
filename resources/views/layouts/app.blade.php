@@ -22,8 +22,14 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="left: 0">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/students') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="">
+                    <div>
+                        @if(request()->is('students*'))
+                           {{"Students Table"}}                           
+                        @else
+                            {{"Teachers table"}}
+                        @endif
+                    </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -31,14 +37,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav me-auto gap-4 ml-4">
+                        <li><a href="{{route('students.index')}}">Students</a></li>
+                        <li><a href="{{route('teachers.index')}}">Teachers</a></li>
                     </ul>
-
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
                         <!-- Authentication Links -->
-                        @guest
+                        @guest  
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -60,7 +66,7 @@
 
                                     <a class="dropdown-item"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                       document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -69,7 +75,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                            @endguest
                     </ul>
                 </div>
             </div>

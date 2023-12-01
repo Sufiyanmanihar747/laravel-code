@@ -26,9 +26,9 @@ class TeacherController extends Controller
         $search = $request->input('search');
         if($search){
             $teachers = $teacherRepository->search($search);
-        } 
+        }   
         else{
-            $teachers = $teacherRepository->paginate(5);
+            $teachers = $teacherRepository->with('student')->paginate(5);
         }
         return view('teacher.index', compact('teachers'));
     }
@@ -52,8 +52,10 @@ class TeacherController extends Controller
         $this->teacherRepository->create($data);
         return redirect('teachers');
     }
-
-    /**
+    // public function getstudent(){
+    //     return Student::with('teacher')->get();
+    // }
+    /** 
      * Display the specified resource.
      */
     public function show(string $id)

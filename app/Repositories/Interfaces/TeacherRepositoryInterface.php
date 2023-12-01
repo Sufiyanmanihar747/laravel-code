@@ -10,4 +10,5 @@ interface TeacherRepositoryInterface{
     public function delete($id);
     public function paginate($page);
     public function search($search);
+    public function with($relations);
 }

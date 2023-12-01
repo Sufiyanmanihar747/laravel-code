@@ -64,6 +64,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="teacher_id">Select Teacher</label>
+                    {!! Form::select('teacher_id', $teachers->pluck('name', 'id'), null, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Select a teacher',
+                    ]) !!}
+                    <span class="text-danger">
+                        @error('teacher_id')
+                        {{$message}}
+                        @enderror
+                    </span>
+                </div>
+
+                <div class="form-group">
                     <label for="address">Course</label>
                     {!! Form::text('course','',[
                         'class' => 'form-control',

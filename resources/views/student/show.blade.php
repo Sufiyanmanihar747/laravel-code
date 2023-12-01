@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>My Profile</title>
-    <link rel="stylesheet" href="{{ asset('show.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
 </head>
 <body>
     <pre>

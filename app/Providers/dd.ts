@@ -20,3 +20,10 @@ service provider
 relation ship
 
 dollar, custom name, extra export
+
+Use belongsTo when the foreign key is on the current model's table, and it references the primary key of another model.
+If you have a Comment model and each comment is associated with a single User, you would use belongsTo in the Comment model to establish this relationship.
+
+Use hasMany when the foreign key is on the related model's table, and it references the primary key of the current model.
+If you have a User model and each user can have multiple comments, you would use hasMany in the User model.
+

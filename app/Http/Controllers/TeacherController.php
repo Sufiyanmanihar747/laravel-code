@@ -52,9 +52,6 @@ class TeacherController extends Controller
         $this->teacherRepository->create($data);
         return redirect('teachers');
     }
-    // public function getstudent(){
-    //     return Student::with('teacher')->get();
-    // }
     /** 
      * Display the specified resource.
      */

@@ -13,6 +13,7 @@ class Teacher extends Model
     protected $fillable = ['name', 'email', 'subject'];
     public function student()
     {
-        return $this->hasOne(Student::class, 'teacher_id');
+        // return $this->hasOne(Student::class, 'teacher_id');
+        return $this->hasMany(Student::class, 'teacher_id');
     }
 }

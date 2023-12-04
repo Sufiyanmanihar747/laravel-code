@@ -16,6 +16,15 @@
             <h2>{{$teacher->name}}</h2>
             <p><b>Email:</b>  {{$teacher->email}}</p>
             <p><b>Subject:</b>  {{$teacher->subject}}</p>
+            <p><b>Students:</b>  
+                @if($teacher->student->isNotEmpty())
+                @foreach($teacher->student as $student)
+                    {{$student->name}},
+                @endforeach
+                @else
+                    No student
+                @endif
+            </p>
             <p><b>Created at:</b>  {{$teacher->created_at}}</p>
             <p><b>Last update:</b>  {{$teacher->updated_at}}</p>
         </div>

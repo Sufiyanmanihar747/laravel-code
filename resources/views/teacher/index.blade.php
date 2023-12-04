@@ -44,9 +44,14 @@
                     <td><a href="{{ route('teachers.show', [$teacher->id]) }}">{{$teacher->name}}</a></td>
                     <td>{{$teacher->email}}</td>
                     <td>{{$teacher->subject}}</td>
-                    <td>
-                        @if ($teacher->student)
-                            <a href="{{ route('students.show', [$teacher->student->id]) }}">{{$teacher->student->name}}</a>
+                    <td>    
+                        @if($teacher->student->isNotEmpty())
+                            {{-- <pre>
+                                {{$teacher->student}}
+                            </pre> --}}
+                            @foreach($teacher->student as $student)
+                                <a href="{{ route('students.show', $student->id) }}">{{$student->name}}</a>,
+                            @endforeach
                         @else
                             No student
                         @endif

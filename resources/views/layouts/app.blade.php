@@ -26,21 +26,21 @@
                     <div>
                         @if(request()->is('students*'))
                            {{"Students Table"}}                           
-                        @else
+                        @elseif(request()->is('teacher*')) 
                             {{"Teachers table"}}
+                        @elseif(request()->is('login*'))
+                            {{"Login"}}
+                        @else
+                            {{"Register"}}
                         @endif
                     </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto gap-4 ml-4">
-                        <li><a href="{{route('students.index')}}">Students</a></li>
-                        <li><a href="{{route('teachers.index')}}">Teachers</a></li>
-                    </ul>
+                    
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto align-items-center">
                         <!-- Authentication Links -->
@@ -57,6 +57,10 @@
                                 </li>
                             @endif
                         @else
+                        <ul class="navbar-nav me-auto gap-4 mr-4">
+                            <li><a href="{{route('students.index')}}">Students</a></li>
+                            <li><a href="{{route('teachers.index')}}">Teachers</a></li>
+                        </ul>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -75,7 +79,7 @@
                                     </form>
                                 </div>
                             </li>
-                            @endguest
+                        @endguest
                     </ul>
                 </div>
             </div>

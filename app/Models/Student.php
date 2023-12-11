@@ -13,7 +13,7 @@ class Student extends Model
     protected $fillable = ['name', 'email', 'phone',  'gender', 'course', 'year', 'address', 'image', 'teacher_id'];
     public function teacher()
     {
-        return $this->belongsTo(Teacher::class, 'teacher_id');
-        // return $this->belongsToMany(Teacher::class, 'teacher_id');
+        // return $this->belongsTo(Teacher::class, 'teacher_id');
+        return $this->belongsToMany(Teacher::class, 'teacher_student', 'student_id', 'teacher_id');
     }
 }

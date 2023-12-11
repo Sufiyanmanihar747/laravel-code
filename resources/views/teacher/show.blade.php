@@ -4,7 +4,7 @@
     <title>My Profile</title>
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
 </head>
-<body>
+<body style="background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);height:100vh">
     <pre>
     <?php
     // print_r($teacher);
@@ -18,9 +18,9 @@
             <p><b>Subject:</b>  {{$teacher->subject}}</p>
             <p><b>Students:</b>  
                 @if($teacher->student->isNotEmpty())
-                @foreach($teacher->student as $student)
-                    {{$student->name}},
-                @endforeach
+                    @foreach($teacher->student as $student)
+                        {{$student->name}}, 
+                    @endforeach
                 @else
                     No student
                 @endif

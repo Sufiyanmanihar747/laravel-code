@@ -6,7 +6,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body >
+<body style="
+background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
     {{-- @dd($teacher); --}}
 
     <div class="progress mt-auto" style="display: none;">
@@ -19,7 +20,8 @@
         @method('PUT')
         @csrf
         <div class=" my-2  d-flex justify-content-center">
-            <div class="form-control p-3 col-md-6">
+            <div class="form-control p-3 col-md-6" style="backdrop-filter: blur(40px);
+            background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Update form</h3>
                 <div class="form-group">
                     <label for="fullname">Full Name</label>
@@ -57,6 +59,32 @@
                     ]) !!}
                     <span class="text-danger">
                         @error('subject')
+                        {{$message}}
+                        @enderror
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="teacher_id">Present Students</label>
+                    @foreach($teacher->student as $student)
+                        <a href="{{route('students.show', $student->id )}}"><li>
+                            {{ $student->name }}</li>
+                        </a>
+                    @endforeach
+                    <label>Select Teachers</label>
+                    <div class="d-flex">
+                        @foreach($students as $student)
+                            <div class="form-check mr-3">
+                                {!! Form::checkbox('student_id[]', $student->id, null,
+                                    [
+                                        'class' => 'form-check-input'
+                                    ])
+                                !!}
+                                <label for="teacher_id" class="form-check-label">{{ $student->name }}</label>
+                            </div>
+                        @endforeach   
+                    </div>
+                    <span class="text-danger">
+                        @error('teacher_id')
                         {{$message}}
                         @enderror
                     </span>

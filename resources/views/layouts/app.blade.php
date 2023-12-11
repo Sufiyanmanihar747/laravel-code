@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="left: 0">
+        <nav class="navbar navbar-expand-md shadow-sm position-fixed w-100 z-3 shadow" style="backdrop-filter: blur(10px); background-color: #ffffff45;font-weight: bold;">
             <div class="container">
                 <a class="navbar-brand" href="">
                     <div>

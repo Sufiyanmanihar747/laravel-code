@@ -20,13 +20,16 @@ class TeacherRepository implements TeacherRepositoryInterface{
     }
 
     public function update($id, array $data){
-        $Teacher = Teacher::find($id);
-        $Teacher->update($data);
-        return $Teacher;
+        $teacher = Teacher::find($id);
+        // @dd($data);
+        if ($teacher) {
+           return $teacher->student()->sync($data['student_id']);
+        }
     }
 
     public function delete($id){
-        return Teacher::destroy($id);
+        $teacher = Teacher::find($id);
+        return Teacher::destroy($teacher);
     }
 
     public function paginate($page) {

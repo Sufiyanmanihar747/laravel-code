@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="
+background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
     {!! Form::open([
         'url' => route('students.store'),
         'files' => 'true',
@@ -19,7 +20,8 @@
         </pre> -->
         @csrf
         <div class=" my-2  d-flex justify-content-center">
-            <div class="form-control px-3 py-1 col-md-6">
+            <div class="form-control px-3 py-1 col-md-6" style="backdrop-filter: blur(40px);
+            background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Registration form</h3>
                 <div class="form-group">
                     <label for="fullname">Full Name</label>
@@ -64,16 +66,27 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="teacher_id">Select Teacher</label>
+                    {{-- <label for="teacher_id">Select Teachers</label>
                     {!! Form::select('teacher_id', $teachers->pluck('name', 'id'), null, [
                         'class' => 'form-control',
-                        'placeholder' => 'Select a teacher',
-                    ]) !!}
+                    ]) !!} --}}
                     <span class="text-danger">
                         @error('teacher_id')
                         {{$message}}
                         @enderror
                     </span>
+
+                    <label>Select Teachers</label>
+                    @foreach($teachers as $teacher)
+                        <div class="form-check">
+                            {!! Form::checkbox('teacher_id[]', $teacher->id, null,
+                                [
+                                    'class' => 'form-check-input'
+                                ]) 
+                            !!}
+                            <label for="teacher_id" class="form-check-label">{{ $teacher->name }}</label>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="form-group">

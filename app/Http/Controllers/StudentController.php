@@ -27,13 +27,15 @@ class StudentController extends Controller
         $search = $request->input('search');
         if($search){
             $students = $studentRepository->search($search);
-        } 
+        }
         else{
             $students = $studentRepository->paginate(5);
         }
-        // ddd($students);
-        $teachers = Teacher::all();
-        return view('student.index', compact('students'), compact('teachers'));
+        // dd($students);
+        // $teachers = Teacher::all();
+        // $studentTeacher = Student::with('teacher')->get();
+        // @dd($studentTeacher);
+        return view('student.index', compact('students'));
     }
     
     /**
@@ -59,8 +61,11 @@ class StudentController extends Controller
             $path = $request->file('image')->storeAs('public/images', $imageName);
             $data['image'] = $imageName;
         }
-        // @dump($image, $data, $request);
-        $this->studentRepository->create($data);
+        $student=$this->studentRepository->create($data);
+        $teachers = $request->input('teacher_id', []);
+        foreach ($teachers as $teacher) {
+            $student->teacher()->attach($teacher);
+        }
         return redirect('students');
     }
 
@@ -91,13 +96,20 @@ class StudentController extends Controller
     {
         $student = $this->studentRepository->find($id);
         if($student){
-            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image', 'teacher_id']);
+            $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
+            $data['teacher_id'] = $request->input('teacher_id');
             if ($request->hasFile('image')){
                 $image = $request->file('image');
                 $imageName = $image->getClientOriginalName();
                 $path = $request->file('image')->storeAs('public/images', $imageName);
                 $data['image'] = $imageName;
             }
+            $student = $this->studentRepository->find($id);
+            $teachers = $request->input('teacher_id', []);
+            foreach ($teachers as $teacher) {
+                $student->teacher()->sync($teacher);
+            }
+            // @dd($data);
             $this->studentRepository->update($id, $data);
             return redirect('students');
         }
@@ -112,10 +124,11 @@ class StudentController extends Controller
         if($student)
         {
             // @dd($student);
-            $imagePath = public_path("storage/images/".$student->image);
-            if($imagePath){
+            if($student->image){
+                $imagePath = public_path("storage/images/".$student->image);
                 unlink($imagePath);
             }
+            $student->teacher()->detach();
             $this->studentRepository->delete($id);
         }
         return redirect('students');

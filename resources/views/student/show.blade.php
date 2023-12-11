@@ -3,8 +3,8 @@
 <head>
     <title>My Profile</title>
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
-</head>
-<body>
+ </head>   {{-- background: linear-gradient(180deg, #ad71f5, #f671ff); --}}
+<body style="background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
     <pre>
     <?php
     // print_r($students);
@@ -21,6 +21,15 @@
             <p><b>Gender:</b>  {{$students->gender}}</p>
             <p><b>Course:</b>  {{$students->course}}</p>
             <p><b>Year:</b>  {{$students->year}}</p>
+            <p><b>Teachers:</b>  
+                @if($students->teacher->isNotEmpty())
+                    @foreach($students->teacher as $teacher)
+                        {{$teacher->name}}, 
+                    @endforeach
+                @else
+                    No teacher
+                @endif
+            </p>
             <p><b>Created at:</b>  {{$students->created_at}}</p>
             <p><b>Last update:</b>  {{$students->updated_at}}</p>
         </div>

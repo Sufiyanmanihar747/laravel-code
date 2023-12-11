@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use App\Models\Student;
 use App\Http\Requests\StorePostRequest;
 use App\Repositories\Interfaces\TeacherRepositoryInterface;
 
@@ -39,7 +40,8 @@ class TeacherController extends Controller
     public function create()
     {
         echo 'this is create';
-        return view('teacher.create');
+        $students = Student::all();
+        return view('teacher.create', compact('students'));
     }
 
     /**
@@ -47,9 +49,15 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        echo 'this is store';
-        $data = $request->only(['name', 'email', 'subject']);
-        $this->teacherRepository->create($data);
+        $data = $request->only(['name', 'email', 'subject','student_id']);
+        // @dd($request);
+        $teacher = $this->teacherRepository->create($data);
+        $students = $request->input('student_id', []);
+        // @dd($students);
+        // @dd(student());
+        foreach ($students as $student) {
+            $teacher->student()->attach($student);
+        }
         return redirect('teachers');
     }
     /** 
@@ -66,10 +74,9 @@ class TeacherController extends Controller
      */
     public function edit(string $id)
     {
-        echo 'this is edit';
+        $students = Student::all();
         $teacher = $this->teacherRepository->find($id);
-        $data = compact('teacher');
-        return view('teacher.edit')->with($data);
+        return view('teacher.edit', compact('teacher'), compact('students'));
     }
 
     /**
@@ -77,14 +84,15 @@ class TeacherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        echo 'this is update';
         $teacher = $this->teacherRepository->find($id);
         if($teacher){
             $data = $request->only(['name', 'email', 'subject']);
+            $data['student_id'] = $request->input('student_id');
+            $students = $request->input('student_id', []);
             $this->teacherRepository->update($id, $data);
             return redirect('teachers');
         }
-    }
+    }   
 
     /**
      * Remove the specified resource from storage.
@@ -95,6 +103,7 @@ class TeacherController extends Controller
         $teacher = $this->teacherRepository->find($id);
         if($teacher)
         {
+            $teacher->student()->detach();
             $this->teacherRepository->delete($id);
         }
         return redirect('teachers');

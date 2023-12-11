@@ -12,10 +12,11 @@
 </head>
 
 <body>
+    {{-- @dd($students); --}}
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
     </div>
-    <div class="container mt-4">
+    <div class="container mt-5">
         <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
         style="background-image: linear-gradient(91.53deg, #1A335D 0%, #1EAAE2 100%">
 
@@ -29,17 +30,17 @@
         <table class="table border shadow-sm">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Gender</th>
-                    <th>Course</th>
-                    <th>Year</th>
-                    <th>Address</th>
-                    <th>Teacher</th>
-                    <th>Created at</th>
-                    <th>Updated at</th>
-                    <th colspan="2">Actions</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center">Gender</th>
+                    <th class="text-center">Course</th>
+                    <th class="text-center">Year</th>
+                    {{-- <th>Address</th> --}}
+                    <th class="text-center">Teacher</th>
+                    <th class="text-center">Created at</th>
+                    <th class="text-center">Updated at</th>
+                    <th colspan="2" class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,9 +52,15 @@
                     <td>{{$student->gender}}</td>
                     <td>{{$student->course}}</td>
                     <td>{{$student->year}}</td>
-                    <td class="overflow">{{$student->address}}</td>
+                    {{-- <td class="overflow">{{$student->address}}</td> --}}
                     <td>
-                        <a href="{{route('teachers.show', [$student->teacher->id])}}">{{$student->teacher->name}}  </a>
+                        <ul>
+                            @foreach($student->teacher as $teacher)
+                                {{-- {{$student->id}}
+                                {{$student->teacher_id}} --}}
+                                <a href="{{route('teachers.show', $teacher->id )}}"><li>{{ $teacher->name }}</li></a>
+                            @endforeach
+                        </ul>
                     </td>
                     <td>{{$student->created_at}}</td>
                     <td>{{$student->updated_at}}</td>
@@ -79,11 +86,6 @@
                 {{-- {{ddd('dump my article',$student);}} --}}
             </tbody>
         </table>
-        <div class="row">
-            <div class="col-md-12 pagination">
-                {{ $students->links() }}
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12 pagination">
                 {{ $students->links() }}

@@ -6,7 +6,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body >
+<body style="
+background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
     {{-- @dd($student); --}}
 
     <div class="progress mt-auto" style="display: none;">
@@ -19,7 +20,8 @@
         @method('PUT')
         @csrf
         <div class=" my-2  d-flex justify-content-center">
-            <div class="form-control p-3 col-md-6">
+            <div class="form-control p-3 col-md-6" style="backdrop-filter: blur(40px);
+            background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Update form</h3>
                 <div class="form-group">
                     <label for="fullname">Full Name</label>
@@ -71,13 +73,25 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="teacher_id">Select Teacher</label>
-                    {{-- <div><pre>{{print_r($teachers)}}</pre></div> --}}
-                    <div>{{$student->teacher->name}}</div>
-                    {!! Form::select('teacher_id', $teachers->pluck('name', 'id'), null, [
-                        'class' => 'form-control',
-                        'placeholder' => 'Select a teacher',
-                    ]) !!}
+                    <label for="teacher_id">Present Teacher</label>
+                    @foreach($student->teacher as $teacher)
+                        <a href="{{route('teachers.show', $teacher->id )}}"><li>
+                            {{ $teacher->name }}</li>
+                        </a>
+                    @endforeach
+                    <label>Select Teachers</label>
+                    <div class="d-flex">
+                        @foreach($teachers as $teacher)
+                            <div class="form-check mr-3">
+                                {!! Form::checkbox('teacher_id[]', $teacher->id, null,
+                                    [
+                                        'class' => 'form-check-input'
+                                    ])
+                                !!}
+                                <label for="teacher_id" class="form-check-label">{{ $teacher->name }}</label>
+                            </div>
+                        @endforeach   
+                    </div>
                     <span class="text-danger">
                         @error('teacher_id')
                         {{$message}}

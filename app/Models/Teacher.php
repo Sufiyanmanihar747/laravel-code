@@ -14,7 +14,7 @@ class Teacher extends Model
     public function student()
     {
         // return $this->hasOne(Student::class, 'teacher_id');
-        return $this->hasMany(Student::class, 'teacher_id');
-        // return $this->belongsToMany(Student::class, 'teacher_id');
+        // return $this->hasMany(Student::class, 'teacher_id');
+        return $this->belongsToMany(Student::class, 'teacher_student', 'teacher_id', 'student_id');
     }
 }

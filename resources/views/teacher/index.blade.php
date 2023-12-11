@@ -15,7 +15,7 @@
     <div class="progress mt-auto" style="display: none;">
         <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
     </div>
-    <div class="container mt-4">
+    <div class="container mt-5">
         <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
         style="background-image: linear-gradient(91.53deg, #1A335D 0%, #1EAAE2 100%">
 
@@ -49,9 +49,11 @@
                             {{-- <pre>
                                 {{$teacher->student}}
                             </pre> --}}
-                            @foreach($teacher->student as $student)
-                                <a href="{{ route('students.show', $student->id) }}">{{$student->name}}</a>,
-                            @endforeach
+                            <ul>
+                                @foreach($teacher->student as $student)
+                                <a href="{{ route('students.show', $student->id) }}"><li>{{$student->name}}</li></a>
+                                @endforeach
+                            </ul>
                         @else
                             No student
                         @endif

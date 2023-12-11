@@ -16,13 +16,17 @@ class StudentRepository implements StudentRepositoryInterface{
     }
 
     public function create(array $data){
-        return Student::create($data);
+        foreach ($data['teacher_id'] as $value) {
+            $data['teacher_id'] = $value; 
+            return Student::create($data); 
+        }
     }
 
     public function update($id, array $data){
         $student = Student::find($id);
-        $student->update($data);
-        return $student;
+        if ($student) {
+           return $student->teacher()->sync($data['teacher_id']);
+        }
     }
 
     public function delete($id){
@@ -34,5 +38,9 @@ class StudentRepository implements StudentRepositoryInterface{
     }
     public function search($search) {
         return Student::where('name', 'like', '%' . $search . '%')->paginate(3);;
+    }
+    public function with($relations)
+    {
+        return Student::with($relations);
     }
 }

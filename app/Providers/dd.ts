@@ -27,3 +27,7 @@ If you have a Comment model and each comment is associated with a single User, y
 Use hasMany when the foreign key is on the related model's table, and it references the primary key of the current model.
 If you have a User model and each user can have multiple comments, you would use hasMany in the User model.
 
+QUESTIONS
+what happen when we delete migration file after migrate??
+Any other way to migrate without making files??
+After npm run dev files are still view to client??

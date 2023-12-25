@@ -17,8 +17,8 @@
             <p><b>Email:</b>  {{$teacher->email}}</p>
             <p><b>Subject:</b>  {{$teacher->subject}}</p>
             <p><b>Students:</b>  
-                @if($teacher->student->isNotEmpty())
-                    @foreach($teacher->student as $student)
+                @if($teacher->students->isNotEmpty())
+                    @foreach($teacher->students as $student)
                         {{$student->name}}, 
                     @endforeach
                 @else

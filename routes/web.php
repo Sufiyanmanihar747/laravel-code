@@ -13,7 +13,10 @@ use App\Http\Controllers\TeacherController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Auth::routes();
-Route::resource('students' , StudentController::class)->middleware('auth');
-Route::resource('teachers', TeacherController::class);
+
+Route::middleware(['auth'])->group(function()
+{
+    Route::resource('students' , StudentController::class);
+    Route::resource('teachers', TeacherController::class);
+});

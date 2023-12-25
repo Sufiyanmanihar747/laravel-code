@@ -44,35 +44,36 @@
                     <td><a href="{{ route('teachers.show', [$teacher->id]) }}">{{$teacher->name}}</a></td>
                     <td>{{$teacher->email}}</td>
                     <td>{{$teacher->subject}}</td>
-                    <td>    
-                        @if($teacher->student->isNotEmpty())
-                            {{-- <pre>
-                                {{$teacher->student}}
-                            </pre> --}}
+                    <td> 
+                        @if($teacher->students->isNotEmpty())
+                
                             <ul>
-                                @foreach($teacher->student as $student)
+                                @foreach($teacher->students as $student)
                                 <a href="{{ route('students.show', $student->id) }}"><li>{{$student->name}}</li></a>
                                 @endforeach
                             </ul>
+
                         @else
+
                             No student
+
                         @endif
                     </td>
                     <td>{{$teacher->created_at}}</td>
                     <td>{{$teacher->updated_at}}</td>
                     <td>
-                        <a href="{{ route('teachers.edit', [$teacher->id]) }}"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"
-                                style="width:30px;" alt="edit"></a>
+                        <a href="{{ route('teachers.edit', [$teacher->id]) }}">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg" style="width:30px;" alt="edit">
+                        </a>
                     </td>
                     <td>
-                        <form action="{{ route('teachers.destroy', [$teacher->id]) }}" method="post">
+                        <form action="{{ route('teachers.destroy', [$teacher->id]) }}" method="post" onsubmit="return showCancelAlert()">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" style="border:none;"
-                                onclick="alert('Are you sure to DELETE this Account!!')" id="showAlertBtn"><img
-                                    style="width:30px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
-                                    alt="">
+                            <button type="submit" style="border:none;" id="showAlertBtn">
+
+                                <img style="width:30px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="">
+
                             </button>
                         </form>
                     </td>
@@ -100,6 +101,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+    function showCancelAlert() {
+        var result = window.confirm('Are you sure to DELETE this Account!!');
+        return result;
+    }
+
     function closeAutoCloseAlert() {
         $('#autoCloseAlert').hide();
         $('#progressBar').parent().hide();

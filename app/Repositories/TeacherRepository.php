@@ -7,35 +7,45 @@ use App\Models\Teacher;
 
 class TeacherRepository implements TeacherRepositoryInterface{
     
-    public function all(){
+    public function all()
+    {
         return Teacher::all();
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return Teacher::find($id);
     }
 
-    public function create(array $data){
+    public function create(array $data)
+    {
         return Teacher::create($data);
     }
 
-    public function update($id, array $data){
+    public function update($id, array $data)
+    {
         $teacher = Teacher::find($id);
-        // @dd($data);
-        if ($teacher) {
-           return $teacher->student()->sync($data['student_id']);
+
+        if ($data['student_id']) 
+        {
+            $teacher->students()->sync($data['student_id']);
         }
+        
+        return $teacher->update($data);
     }
 
-    public function delete($id){
-        $teacher = Teacher::find($id);
-        return Teacher::destroy($teacher);
+    public function delete($id)
+    {
+        return Teacher::destroy($id);
     }
 
-    public function paginate($page) {
+    public function paginate($page) 
+    {
         return Teacher::paginate($page);
     }
-    public function search($search) {
+
+    public function search($search) 
+    {
         return Teacher::where('name', 'like', '%' . $search . '%')->paginate(3);;
     }
 

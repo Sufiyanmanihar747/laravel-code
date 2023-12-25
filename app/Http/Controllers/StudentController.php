@@ -7,8 +7,10 @@ use App\Models\Student;
 use App\Http\Requests\StorePostRequest;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Models\Teacher;
+use App\Traits\HandleImage;
 class StudentController extends Controller
 {
+    use HandleImage;
     /**
      * Display a listing of the resource.
      */
@@ -21,20 +23,18 @@ class StudentController extends Controller
     }
     
     public function index(Request $request, StudentRepositoryInterface $studentRepository) {
-        // $students = $studentRepository->all();
-        // return view('student.student', compact('students'));
-        // $students = Student::paginate(3); 
+
         $search = $request->input('search');
-        if($search){
+
+        if($search)
+        {
             $students = $studentRepository->search($search);
         }
-        else{
+        else
+        {
             $students = $studentRepository->paginate(5);
         }
-        // dd($students);
-        // $teachers = Teacher::all();
-        // $studentTeacher = Student::with('teacher')->get();
-        // @dd($studentTeacher);
+
         return view('student.index', compact('students'));
     }
     
@@ -53,19 +53,13 @@ class StudentController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
-        $data['teacher_id'] = $request->input('teacher_id');
+        
         if ($request->hasFile('image')) 
         {
-            $image = $request->file('image');
-            $imageName = $image->getClientOriginalName();
-            $path = $request->file('image')->storeAs('public/images', $imageName);
-            $data['image'] = $imageName;
-        }
+            $data['image'] = $this->handleimage($request);
+        }   
+
         $student=$this->studentRepository->create($data);
-        $teachers = $request->input('teacher_id', []);
-        foreach ($teachers as $teacher) {
-            $student->teacher()->attach($teacher);
-        }
         return redirect('students');
     }
 
@@ -95,21 +89,18 @@ class StudentController extends Controller
     public function update(StorePostRequest $request,$id)
     {
         $student = $this->studentRepository->find($id);
-        if($student){
+
+        if($student)
+        {
             $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
-            $data['teacher_id'] = $request->input('teacher_id');
-            if ($request->hasFile('image')){
-                $image = $request->file('image');
-                $imageName = $image->getClientOriginalName();
-                $path = $request->file('image')->storeAs('public/images', $imageName);
-                $data['image'] = $imageName;
+            $data['teacher_id'] = $request->input('teacher_id',[]);
+
+            if ($request->hasFile('image')) 
+            {
+                $data['image'] =$this->handleimage($request);
             }
+
             $student = $this->studentRepository->find($id);
-            $teachers = $request->input('teacher_id', []);
-            foreach ($teachers as $teacher) {
-                $student->teacher()->sync($teacher);
-            }
-            // @dd($data);
             $this->studentRepository->update($id, $data);
             return redirect('students');
         }
@@ -121,14 +112,16 @@ class StudentController extends Controller
     public function destroy($id)
     {
         $student = $this->studentRepository->find($id);
+
         if($student)
         {
-            // @dd($student);
-            if($student->image){
+            if($student->image)
+            {
                 $imagePath = public_path("storage/images/".$student->image);
                 unlink($imagePath);
             }
-            $student->teacher()->detach();
+
+            $student->teachers()->detach();
             $this->studentRepository->delete($id);
         }
         return redirect('students');

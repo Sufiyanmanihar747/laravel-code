@@ -25,12 +25,16 @@ class TeacherController extends Controller
     public function index(Request $request, TeacherRepositoryInterface $teacherRepository)
     {
         $search = $request->input('search');
-        if($search){
+
+        if($search)
+        {
             $teachers = $teacherRepository->search($search);
         }   
-        else{
-            $teachers = $teacherRepository->with('student')->paginate(5);
+        else
+        {
+            $teachers = $teacherRepository->with('students')->paginate(5);
         }
+        
         return view('teacher.index', compact('teachers'));
     }
 
@@ -50,14 +54,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $data = $request->only(['name', 'email', 'subject','student_id']);
-        // @dd($request);
         $teacher = $this->teacherRepository->create($data);
-        $students = $request->input('student_id', []);
-        // @dd($students);
-        // @dd(student());
-        foreach ($students as $student) {
-            $teacher->student()->attach($student);
-        }
         return redirect('teachers');
     }
     /** 
@@ -85,10 +82,11 @@ class TeacherController extends Controller
     public function update(Request $request, string $id)
     {
         $teacher = $this->teacherRepository->find($id);
-        if($teacher){
+        
+        if($teacher)
+        {
             $data = $request->only(['name', 'email', 'subject']);
-            $data['student_id'] = $request->input('student_id');
-            $students = $request->input('student_id', []);
+            $data['student_id'] = $request->input('student_id', []);
             $this->teacherRepository->update($id, $data);
             return redirect('teachers');
         }
@@ -99,13 +97,14 @@ class TeacherController extends Controller
      */
     public function destroy(string $id)
     {
-        echo 'this is destroy';
         $teacher = $this->teacherRepository->find($id);
+
         if($teacher)
         {
-            $teacher->student()->detach();
+            $teacher->students()->detach();
             $this->teacherRepository->delete($id);
         }
+
         return redirect('teachers');
     }
 }

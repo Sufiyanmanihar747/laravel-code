@@ -22,8 +22,8 @@
             <p><b>Course:</b>  {{$students->course}}</p>
             <p><b>Year:</b>  {{$students->year}}</p>
             <p><b>Teachers:</b>  
-                @if($students->teacher->isNotEmpty())
-                    @foreach($students->teacher as $teacher)
+                @if($students->teachers->isNotEmpty())
+                    @foreach($students->teachers as $teacher)
                         {{$teacher->name}}, 
                     @endforeach
                 @else

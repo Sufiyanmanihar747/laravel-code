@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-    // php artisan make:migration add_your_column_name_to_your_table_name --table=your_table_name
+
     /**
      * Reverse the migrations.
      */

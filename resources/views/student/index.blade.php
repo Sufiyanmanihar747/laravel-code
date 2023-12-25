@@ -45,45 +45,44 @@
             </thead>
             <tbody>
                 @foreach($students as $student)
-                <tr class="shadow-lg">
-                    <td><a href="{{ route('students.show', [$student->id]) }}">{{$student->name}}</a></td>
-                    <td class="overflow">{{$student->email}}</td>
-                    <td>{{$student->phone}}</td>
-                    <td>{{$student->gender}}</td>
-                    <td>{{$student->course}}</td>
-                    <td>{{$student->year}}</td>
-                    {{-- <td class="overflow">{{$student->address}}</td> --}}
-                    <td>
-                        <ul>
-                            @foreach($student->teacher as $teacher)
-                                {{-- {{$student->id}}
-                                {{$student->teacher_id}} --}}
-                                <a href="{{route('teachers.show', $teacher->id )}}"><li>{{ $teacher->name }}</li></a>
-                            @endforeach
-                        </ul>
-                    </td>
-                    <td>{{$student->created_at}}</td>
-                    <td>{{$student->updated_at}}</td>
-                    <td>
-                        <a href="{{route('students.edit', [$student->id])}}">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"style="width:30px;" alt="edit"></a>
-                    </td>
-                    <td>
-                        <form action="{{ route('students.destroy', [$student->id]) }}" method="post">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" style="border:none;"
-                                onclick="alert('Are you sure to DELETE this Account!!')" id="showAlertBtn"><img
-                                    style="width:30px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
-                                    alt="">
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                {{-- @ddd($student); --}}
+
+                    <tr class="shadow-lg">
+                        <td><a href="{{ route('students.show', [$student->id]) }}">{{$student->name}}</a></td>
+                        <td class="overflow">{{$student->email}}</td>
+                        <td>{{$student->phone}}</td>
+                        <td>{{$student->gender}}</td>
+                        <td>{{$student->course}}</td>
+                        <td>{{$student->year}}</td>
+                        {{-- <td class="overflow">{{$student->address}}</td> --}}
+                        <td>
+                            <ul>
+                                @foreach($student->teachers as $teacher)
+
+                                    <a href="{{route('teachers.show', $teacher->id )}}">
+                                        <li>{{ $teacher->name }}</li>
+                                    </a>
+
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>{{$student->created_at}}</td>
+                        <td>{{$student->updated_at}}</td>
+                        <td>
+                            <a href="{{route('students.edit', [$student->id])}}">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"style="width:30px;" alt="edit"></a>
+                        </td>
+                        <td>
+                            <form action="{{ route('students.destroy', [$student->id]) }}" method="post" onsubmit="return showCancelAlert()">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" style="border:none;" id="showAlertBtn">
+                                    <img style="width:30px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="">
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                
                 @endforeach
-                {{-- @dd($student); --}}
-                {{-- {{ddd('dump my article',$student);}} --}}
             </tbody>
         </table>
         <div class="row">
@@ -98,6 +97,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+    function showCancelAlert() {
+
+        var result = window.confirm('Are you sure to DELETE this Account!!');
+        return result;
+    }
+    
     function closeAutoCloseAlert() {
         $('#autoCloseAlert').hide();
         $('#progressBar').parent().hide();
@@ -129,4 +134,5 @@
 </script>
 
 </html>
+
 @endsection

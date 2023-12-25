@@ -65,7 +65,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
                 <div class="form-group">
                     <label for="teacher_id">Present Students</label>
-                    @foreach($teacher->student as $student)
+                    @foreach($teacher->students as $student)
                         <a href="{{route('students.show', $student->id )}}"><li>
                             {{ $student->name }}</li>
                         </a>

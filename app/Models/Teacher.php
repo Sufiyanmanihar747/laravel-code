@@ -17,7 +17,7 @@ class Teacher extends Model
     {
         // return $this->hasOne(Student::class, 'teacher_id');
         // return $this->hasMany(Student::class, 'teacher_id');
-        return $this->belongsToMany(Student::class, 'teacher_student', 'teacher_id', 'student_id');
+        return $this->belongsToMany(Student::class, 'teacher_student', 'teacher_id', 'student_id')->withTimestamps();
     }
 
     public static function boot(){

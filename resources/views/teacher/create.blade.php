@@ -24,7 +24,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
             background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Registration form</h3>
                 <div class="form-group">
-                    <label for="fullname">Full Name</label>
+                    <label class="font-weight-bold" for="fullname">Full Name</label>
                     {!! Form::text('name','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter name',
@@ -36,7 +36,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label class="font-weight-bold" for="email">Email</label>
                     {!! Form::email('email','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter your email'
@@ -48,7 +48,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Subject</label>
+                    <label class="font-weight-bold" for="email">Subject</label>
                     {!! Form::text('subject','',[
                         'class' => 'form-control',
                         'placeholder' => 'Subject'
@@ -59,8 +59,8 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                         @enderror
                     </span>
                 </div>
-                <label>Select Students</label>
-                <div class="form-group d-flex">
+                <label class="font-weight-bold">Select Students</label>
+                <div class="form-group d-flex flex-column">
                     @foreach($students as $student)
                         <div class="form-check d-flex align-items-center mr-3">
                             {!! Form::checkbox('student_id[]', $student->id, null,
@@ -68,7 +68,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                                     'class' => 'form-check-input'
                                 ]) 
                             !!}
-                            <label for="teacher_id" class="form-check-label">{{ $student->name }}</label>
+                            <label  for="teacher_id" class="form-check-label">{{ $student->name }}</label>
                         </div>
                     @endforeach
                 </div>

@@ -24,7 +24,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
             background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Update form</h3>
                 <div class="form-group">
-                    <label for="fullname">Full Name</label>
+                    <label class="font-weight-bold" for="fullname">Full Name</label>
                     {!! Form::text('name',$teacher->name,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter name',
@@ -37,7 +37,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
                
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label class="font-weight-bold" for="exampleInputEmail1">Email address</label>
                     {!! Form::email('email',$teacher->email,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter email',
@@ -52,7 +52,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="fullname">Subject</label>
+                    <label class="font-weight-bold" for="fullname">Subject</label>
                     {!! Form::text('subject',$teacher->subject,[
                         'class' => 'form-control',
                         'placeholder' => 'Subject',
@@ -64,14 +64,14 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="teacher_id">Present Students</label>
+                    <label class="font-weight-bold" for="teacher_id">Present Students</label>
                     @foreach($teacher->students as $student)
-                        <a href="{{route('students.show', $student->id )}}"><li>
+                        <a href="{{route('students.show', $student->id )}}" class="text-white"><li>
                             {{ $student->name }}</li>
                         </a>
                     @endforeach
-                    <label>Select Teachers</label>
-                    <div class="d-flex">
+                    <label class="font-weight-bold">Select Teachers</label>
+                    <div class="d-flex flex-column">
                         @foreach($students as $student)
                             <div class="form-check mr-3">
                                 {!! Form::checkbox('student_id[]', $student->id, null,
@@ -79,7 +79,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                                         'class' => 'form-check-input'
                                     ])
                                 !!}
-                                <label for="teacher_id" class="form-check-label">{{ $student->name }}</label>
+                                <label  for="teacher_id" class="form-check-label">{{ $student->name }}</label>
                             </div>
                         @endforeach   
                     </div>

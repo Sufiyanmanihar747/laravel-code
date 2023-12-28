@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,7 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $students = \App\Models\Student::factory(10)->create();
+        $teachers = \App\Models\Teacher::factory(10)->create();
+
+        foreach ($students as $student)
+        {
+            $teacherIds = $teachers->random(2)->pluck('id')->toArray();
+            $student->teachers()->attach($teacherIds);
+        }
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

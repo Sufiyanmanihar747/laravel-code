@@ -24,7 +24,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
             background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Registration form</h3>
                 <div class="form-group">
-                    <label for="fullname">Full Name</label>
+                    <label class="font-weight-bold" for="name">Full Name</label>
                     {!! Form::text('name','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter name',
@@ -36,7 +36,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label class="font-weight-bold" for="email">Email</label>
                     {!! Form::email('email','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter your email'
@@ -48,7 +48,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Phone</label>
+                    <label class="font-weight-bold" for="phone">Phone</label>
                     {!! Form::tel('phone','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter your number'
@@ -60,29 +60,25 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="address">Gender</label><br>
+                    <label class="font-weight-bold" for="gender">Gender</label><br>
                     {!! Form::radio('gender','Male') !!} Male
                     {!! Form::radio('gender','Female') !!} Female
                 </div>
 
                 <div class="form-group">
-                    {{-- <label for="teacher_id">Select Teachers</label>
-                    {!! Form::select('teacher_id', $teachers->pluck('name', 'id'), null, [
-                        'class' => 'form-control',
-                    ]) !!} --}}
                     <span class="text-danger">
                         @error('teacher_id')
                         {{$message}}
                         @enderror
                     </span>
 
-                    <label>Select Teachers</label>
+                    <label class="font-weight-bold">Select Teachers</label>
                     @foreach($teachers as $teacher)
                         <div class="form-check">
                             {!! Form::checkbox('teacher_id[]', $teacher->id, null,
                                 [
                                     'class' => 'form-check-input'
-                                ]) 
+                                ])
                             !!}
                             <label for="teacher_id" class="form-check-label">{{ $teacher->name }}</label>
                         </div>
@@ -90,7 +86,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Course</label>
+                    <label class="font-weight-bold" for="address">Course</label>
                     {!! Form::text('course','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter course',
@@ -103,7 +99,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Year</label>
+                    <label class="font-weight-bold" for="address">Year</label>
                     {!! Form::text('year','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter Year',
@@ -116,7 +112,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label class="font-weight-bold" for="address">Address</label>
                     {!! Form::text('address','',[
                         'class' => 'form-control',
                         'placeholder' => 'Enter address',
@@ -128,7 +124,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="image">Upload Image</label>
+                    <label class="font-weight-bold" for="image">Upload Image</label>
                     {!! Form::file('image',[
                         'class' => 'form-control',
                         'accept' => "image/*",

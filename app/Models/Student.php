@@ -18,7 +18,7 @@ class Student extends Model
     public function teachers()
     {
         // return $this->belongsTo(Teacher::class, 'teacher_id');
-        return $this->belongsToMany(Teacher::class, 'teacher_student', 'student_id', 'teacher_id');
+        return $this->belongsToMany(Teacher::class, 'teacher_student', 'student_id', 'teacher_id')->withTimestamps();
     }
 
     public static function boot(){
@@ -61,6 +61,16 @@ class Student extends Model
         static::deleted(function($name)
         {
             dump('this is deleted');
+        });
+
+        static::saving(function($name)
+        {
+            dump('this is saving');
+        });
+
+        static::saved(function($name)
+        {
+            dump('this is saved');
         });
     }
 }

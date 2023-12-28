@@ -2,8 +2,7 @@
 
 <head>
     <title>Update page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body style="
@@ -24,7 +23,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
             background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
                 <h3 class="text-center">Update form</h3>
                 <div class="form-group">
-                    <label for="fullname">Full Name</label>
+                    <label class="font-weight-bold" for="fullname">Full Name</label>
                     {!! Form::text('name',$student->name,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter name',
@@ -37,7 +36,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
                
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label class="font-weight-bold" for="exampleInputEmail1">Email address</label>
                     {!! Form::email('email',$student->email,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter email',
@@ -52,7 +51,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="fullname">Phone no</label>
+                    <label class="font-weight-bold" for="fullname">Phone no</label>
                     {!! Form::tel('phone',$student->phone,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter number',
@@ -65,22 +64,27 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
 
-                <div class="form-control">
-                    <label for="">Gender</label><br>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="">Gender</label><br>
                     {!! Form::radio('gender', 'Male', $student->gender === 'Male') !!} Male
 
                     {!! Form::radio('gender', 'Female', $student->gender === 'Female') !!} Female
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="teacher_id">Present Teacher</label>
+                    <label class="font-weight-bold" for="teacher_id">Present Teachers</label>
+
                     @foreach($student->teachers as $teacher)
-                        <a href="{{route('teachers.show', $teacher->id )}}"><li>
+
+                        <a href="{{route('teachers.show', $teacher->id )}}" class="text-white"><li>
                             {{ $teacher->name }}</li>
                         </a>
+
                     @endforeach
-                    <label>Select Teachers</label>
-                    <div class="d-flex">
+                </div>
+                <div>
+                    <label class="font-weight-bold">Select Teachers</label>
+                    <div class="d-flex flex-column">
                         @foreach($teachers as $teacher)
                             <div class="form-check mr-3">
                                 {!! Form::checkbox('teacher_id[]', $teacher->id, null,
@@ -98,8 +102,9 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                         @enderror
                     </span>
                 </div>
+                <br>
                 <div class="form-group">
-                    <label for="address">Course</label>
+                    <label class="font-weight-bold" for="address">Course</label>
                     {!! Form::text('course',$student->course,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter course',
@@ -112,7 +117,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Year</label>
+                    <label class="font-weight-bold" for="address">Year</label>
                     {!! Form::text('year',$student->year,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter Year',
@@ -125,7 +130,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label class="font-weight-bold" for="address">Address</label>
                     {!! Form::text('address',$student->address,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter address',
@@ -137,7 +142,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                     </span>
                 </div>
                 <div class="form-group">
-                    <label for="image">Upload Image</label><br>
+                    <label class="font-weight-bold" for="image">Upload Image</label><br>
                     <div>{{$student->image}}</div>
                     {!! Form::file('image',[
                         'class' => 'form-control',

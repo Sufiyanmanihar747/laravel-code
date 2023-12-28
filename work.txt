@@ -20,7 +20,29 @@ middleware :- Middleware in Laravel provides a mechanism to filter HTTP requests
 custom middleware ---
 model events ---
 name 
-
 php artisan make:middleware CustomMiddleware
-
 The boot method is a special method in Eloquent models that is automatically called when the model is booted. Model booting occurs when the model class is first loaded into memory.
+
+seeder
+faker
+db:seed
+
+
+Seeder:- In Laravel, a seeder is a class that allows you to populate database tables with sample or default data. Seeders are often used in conjunction with Laravel's Eloquent ORM (Object-Relational Mapping) to insert data into database tables during the development and testing phases of a project.
+php artisan make:seeder YourSeederName         --creating file
+php artisan db:seed --class=YourSeederName     --seed specific file
+php artisan db:seed                            --run them all at once
+
+
+Faker:- In Laravel, Faker is a PHP library integrated into the framework that provides a convenient way to generate fake data for testing and seeding databases, allowing developers to create realistic-looking but randomized data for various scenarios without using actual production data.
+
+composer require fzaninotto/faker     --install 
+$faker = Faker::create();
+for ($i = 0; $i < 10; $i++) {
+    DB::table('users')->insert([
+        'name' => $faker->name,
+        'email' => $faker->unique()->safeEmail,
+        'password' => bcrypt('password'),
+    ]);
+}
+

@@ -22,7 +22,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md shadow-sm position-fixed w-100 z-3 shadow" style="backdrop-filter: blur(10px); background-color: #ffffff45;font-weight: bold;">
             <div class="container">
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="{{ url('/students') }}">
                     <div>
                         @if(request()->is('students*'))
                            {{"Students Table"}}                           
@@ -68,13 +68,13 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item"
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>

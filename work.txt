@@ -46,3 +46,7 @@ for ($i = 0; $i < 10; $i++) {
     ]);
 }
 
+phone no --
+logout
+css fix
+layout

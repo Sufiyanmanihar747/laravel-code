@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuids;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+
 class Student extends Model
 {
     use Uuids;
@@ -32,7 +34,8 @@ class Student extends Model
             {
                 foreach ($teacherIds as $value)
                 {
-                    $student->teachers()->attach($value); 
+                    $uuid = Str::uuid()->toString();
+                    $student->teachers()->attach($value, ['id' => $uuid]); 
                 }
             }
 

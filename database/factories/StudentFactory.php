@@ -20,7 +20,7 @@ class StudentFactory extends Factory
 
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            // 'phone' => str_replace(['-', '+'], '', $this->faker->phoneNumber),
+            'phone' =>$this->faker->phoneNumber,
             'gender' => $this->faker->randomElement(['Male', 'Female']),
             'course' => $this->faker->word,
             'year' => $this->faker->randomElement(['First', 'Second', 'Third']),

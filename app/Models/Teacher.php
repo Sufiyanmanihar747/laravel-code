@@ -33,6 +33,7 @@ class Teacher extends Model
             {
                 foreach ($studentIds as $value)
                 {
+                    $uuid = Str::uuid()->toString();
                     $teacher->students()->attach($value);
                 }
             }

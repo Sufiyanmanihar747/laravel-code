@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +19,12 @@ class DatabaseSeeder extends Seeder
         foreach ($students as $student)
         {
             $teacherIds = $teachers->random(2)->pluck('id')->toArray();
-            $student->teachers()->attach($teacherIds);
+            
+            foreach ($teacherIds as $teacherId) 
+            {
+                $uuid = Str::uuid()->toString();
+                $student->teachers()->attach($teacherId, ['id' => $uuid]);
+            }
         }
 
         // \App\Models\User::factory()->create([

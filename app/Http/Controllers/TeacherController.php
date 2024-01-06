@@ -16,7 +16,7 @@ class TeacherController extends Controller
      */
 
     protected $teacherRepository;
-    
+
     public function __construct(TeacherRepositoryInterface $teacherRepository)
     {
         $this->teacherRepository = $teacherRepository;
@@ -29,12 +29,12 @@ class TeacherController extends Controller
         if($search)
         {
             $teachers = $teacherRepository->search($search);
-        }   
+        }
         else
         {
             $teachers = $teacherRepository->with('students')->paginate(5);
         }
-        
+
         return view('teacher.index', compact('teachers'));
     }
 
@@ -57,7 +57,8 @@ class TeacherController extends Controller
         $teacher = $this->teacherRepository->create($data);
         return redirect('teachers');
     }
-    /** 
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -82,7 +83,7 @@ class TeacherController extends Controller
     public function update(Request $request, string $id)
     {
         $teacher = $this->teacherRepository->find($id);
-        
+
         if($teacher)
         {
             $data = $request->only(['name', 'email', 'subject']);
@@ -90,7 +91,7 @@ class TeacherController extends Controller
             $this->teacherRepository->update($id, $data);
             return redirect('teachers');
         }
-    }   
+    }
 
     /**
      * Remove the specified resource from storage.

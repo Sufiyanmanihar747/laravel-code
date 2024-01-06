@@ -1,20 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!DOCTYPE html>
-
-<head>
-    <title>Teachers Records</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/studentTable.css')}}">
-</head>
-
-<body>
-    <div class="progress mt-auto" style="display: none;">
-        <div class="progress-bar bg-danger" id="progressBar" style="width: 0;"></div>
-    </div>
     <div class="container mt-5">
         <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
         style="background-image: linear-gradient(91.53deg, #1A335D 0%, #1EAAE2 100%">
@@ -44,9 +30,9 @@
                     <td><a href="{{ route('teachers.show', [$teacher->id]) }}">{{$teacher->name}}</a></td>
                     <td>{{$teacher->email}}</td>
                     <td>{{$teacher->subject}}</td>
-                    <td> 
+                    <td>
                         @if($teacher->students->isNotEmpty())
-                
+
                             <ul>
                                 @foreach($teacher->students as $student)
                                 <a href="{{ route('students.show', $student->id) }}"><li>{{$student->name}}</li></a>
@@ -100,41 +86,4 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    function showCancelAlert() {
-        var result = window.confirm('Are you sure to DELETE this Account!!');
-        return result;
-    }
-
-    function closeAutoCloseAlert() {
-        $('#autoCloseAlert').hide();
-        $('#progressBar').parent().hide();
-        $('#showAlertBtn').show();
-    }
-
-    function showAlertWithProgressBar() {
-        $('#autoCloseAlert').show();
-        $('#progressBar').parent().show();
-
-        const duration = 5000;
-
-        const progressIncrement = (100 / duration) * 100;
-
-        let progress = 0;
-        const progressBar = $('#progressBar');
-        const interval = 100;
-
-        const updateProgressBar = setInterval(() => {
-            progress += progressIncrement;
-            progressBar.css('width', progress + '%');
-            if (progress >= 100) {
-                clearInterval(updateProgressBar);
-                closeAutoCloseAlert();
-            }
-        }, interval);
-    }
-    $('#showAlertBtn').click(showAlertWithProgressBar);
-</script>
-
-</html>
 @endsection

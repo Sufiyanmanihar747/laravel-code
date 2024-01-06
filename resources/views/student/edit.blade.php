@@ -8,12 +8,8 @@
 <body style="
 background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
     {{-- @dd($student); --}}
-
-    <div class="progress mt-auto" style="display: none;">
-        <div class="progress-bar bg-success" id="progressBar" style="width: 0;"></div>
-    </div>
         {!! Form::open([
-            'route' => ['students.update', $student->id], 
+            'route' => ['students.update', $student->id],
             'files' => 'true'
         ]) !!}
         @method('PUT')
@@ -34,7 +30,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                         @enderror
                     </span>
                 </div>
-               
+
                 <div class="form-group">
                     <label class="font-weight-bold" for="exampleInputEmail1">Email address</label>
                     {!! Form::email('email',$student->email,[
@@ -94,7 +90,7 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
                                 !!}
                                 <label for="teacher_id" class="form-check-label">{{ $teacher->name }}</label>
                             </div>
-                        @endforeach   
+                        @endforeach
                     </div>
                     <span class="text-danger">
                         @error('teacher_id')
@@ -158,36 +154,4 @@ background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-    function closeAutoCloseAlert() {
-        $('#autoCloseAlert').hide();
-        $('#progressBar').parent().hide();
-        $('#showAlertBtn').show();
-    }
-
-    function showAlertWithProgressBar() {
-        $('#autoCloseAlert').show();
-        $('#progressBar').parent().show();
-
-        const duration = 5000;
-
-        const progressIncrement = (100 / duration) * 100;
-
-        let progress = 0;
-        const progressBar = $('#progressBar');
-        const interval = 100;
-
-        const updateProgressBar = setInterval(() => {
-            progress += progressIncrement;
-            progressBar.css('width', progress + '%');
-            if (progress >= 100) {
-                clearInterval(updateProgressBar);
-                closeAutoCloseAlert();
-            }
-        }, interval);
-    }
-    $('#showAlertBtn').click(showAlertWithProgressBar);
-</script>
-
 </html>

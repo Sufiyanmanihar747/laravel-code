@@ -12,13 +12,14 @@ export default defineConfig({
                 'resources/css/profile.css',
                 'resources/css/studentTable.css',
                 'resources/js/eye.js',
+                'resources/js/alert.js',
             ],
             refresh: true,
           }),
         ],
         build: {
           outDir: 'public/assets',
-      
+
           rollupOptions: {
             output: {
               entryFileNames: 'js/[name].js',

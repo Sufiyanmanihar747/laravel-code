@@ -16,12 +16,13 @@ class StudentController extends Controller
      */
 
     protected $studentRepository;
-    
+
     public function __construct(StudentRepositoryInterface $studentRepository)
     {
+        $this->middleware('auth');
         $this->studentRepository = $studentRepository;
     }
-    
+
     public function index(Request $request, StudentRepositoryInterface $studentRepository) {
 
         $search = $request->input('search');
@@ -37,7 +38,7 @@ class StudentController extends Controller
 
         return view('student.index', compact('students'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -53,11 +54,11 @@ class StudentController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
-        
-        if ($request->hasFile('image')) 
+
+        if ($request->hasFile('image'))
         {
             $data['image'] = $this->handleimage($request);
-        }   
+        }
 
         $student=$this->studentRepository->create($data);
         return redirect('students');
@@ -95,7 +96,7 @@ class StudentController extends Controller
             $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
             $data['teacher_id'] = $request->input('teacher_id',[]);
 
-            if ($request->hasFile('image')) 
+            if ($request->hasFile('image'))
             {
                 $data['image'] =$this->handleimage($request);
             }

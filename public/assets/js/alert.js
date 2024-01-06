@@ -1,0 +1,1 @@
+$(document).ready(function(){setTimeout(function(){e()},0)});function e(){$("#customPopup").modal("show");let o=0;const t=setInterval(function(){o+=1,$(".progress-bar").css("width",o+"%").attr("aria-valuenow",o),o>=100&&(clearInterval(t),setTimeout(function(){$("#customPopup").modal("hide")},500))},10)}

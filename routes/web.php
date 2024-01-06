@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +15,13 @@ use App\Http\Controllers\TeacherController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes();
 
+Auth::routes();
 Route::middleware(['auth'])->group(function()
 {
+    Route::get('/', [HomeController::class, 'index']);
     Route::resource('students' , StudentController::class);
-    Route::resource('teachers', TeacherController::class);
+    Route::resource('teachers', TeacherController::class)->middleware('is_admin');
 });
+
+// Route::get('/student', [HomeController::class, 'students_dashboard']);

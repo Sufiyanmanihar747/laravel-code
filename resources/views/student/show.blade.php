@@ -3,7 +3,7 @@
 <head>
     <title>My Profile</title>
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
- </head>   {{-- background: linear-gradient(180deg, #ad71f5, #f671ff); --}}
+ </head>
 <body style="background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
     <pre>
     <?php
@@ -21,10 +21,10 @@
             <p><b>Gender:</b>  {{$students->gender}}</p>
             <p><b>Course:</b>  {{$students->course}}</p>
             <p><b>Year:</b>  {{$students->year}}</p>
-            <p><b>Teachers:</b>  
+            <p><b>Teachers:</b>
                 @if($students->teachers->isNotEmpty())
                     @foreach($students->teachers as $teacher)
-                        {{$teacher->name}}, 
+                        {{$teacher->name}},
                     @endforeach
                 @else
                     No teacher

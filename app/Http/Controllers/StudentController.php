@@ -69,9 +69,8 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $students = $this->studentRepository->find($id);
-        $data = compact('students');
-        return view('student.show')->with($data);
+        $student = $this->studentRepository->find($id);
+        return view('student.show', compact('student'));
     }
 
     /**
@@ -81,7 +80,7 @@ class StudentController extends Controller
     {
         $teachers = Teacher::all();
         $student = $this->studentRepository->find($id);
-        return view('student.edit', compact('student'), compact('teachers'));
+        return view('student.create', compact('student'), compact('teachers'));
     }
 
     /**

@@ -2,8 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,6 +16,7 @@
 
   <!-- Scripts -->
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -26,24 +27,14 @@
 
 </head>
 
-<body>
+<body style="background-color: #dfdfdf;">
   <div id="app">
-    <nav class="navbar navbar-expand-md shadow-sm position-fixed w-100 z-3 shadow"
+    <nav class="p-0 navbar navbar-expand-md shadow-sm position-fixed w-100 z-3 shadow"
       style="backdrop-filter: blur(10px); background-color: #ffffff45;font-weight: bold;">
       <div class="container">
-        <a class="navbar-brand" href="{{ url('/students') }}">
+        <a class="navbar-brand p-1" href="{{ url('/students') }}">
           <div>
-            @if (request()->is('students*'))
-              {{ 'Students Table' }}
-            @elseif(request()->is('teacher*'))
-              {{ 'Teachers table' }}
-            @elseif(request()->is('login*'))
-              {{ 'Login' }}
-            @elseif(request()->is('/'))
-              {{ 'Home' }}
-            @else
-              {{ 'Registration' }}
-            @endif
+            <img src="https://sangamcrm.com/wp-content/uploads/2021/09/Main-LOGO.png" width="70px" alt="" class="mr-5">
           </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -55,6 +46,22 @@
 
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ms-auto align-items-center">
+            <form class="form-inline my-2 my-lg-0" action="{{route('students.index')}}">
+                <input class="form-control mr-sm-2" name="search" type="search"
+                    placeholder="Search name" aria-label="Search">
+                <button class="btn btn-success my-2 my-sm-0 mr-5" type="submit">Search</button>
+            </form>
+            @if (request()->is('students*'))
+                {{'Students Table'}}
+            @elseif(request()->is('teacher*'))
+              {{ 'Teachers Table' }}
+            @elseif(request()->is('login*'))
+              {{ 'Login' }}
+            @elseif(request()->is('/'))
+              {{ 'Home' }}
+            @else
+              {{ 'Registration' }}
+            @endif
             <!-- Authentication Links -->
             @guest
               @if (Route::has('login'))
@@ -83,7 +90,7 @@
 
                   <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
+                    document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                   </a>
 
@@ -103,7 +110,12 @@
   </div>
   <script src="{{ asset('jquery.js') }}"></script>
   <script src="{{ asset('assets/js/eye.js') }}"></script>
-  <script src="{{ asset('assets/js/alert.js') }}"></script>
+  <script src="{{ asset('assets/js/alerts.js') }}"></script>
 </body>
-
+<script>
+function showCancelAlert() {
+    var result = window.confirm('Are you sure to DELETE this Account!!');
+    return result;
+}
+</script>
 </html>

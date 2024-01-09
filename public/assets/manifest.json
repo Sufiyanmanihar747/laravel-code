@@ -14,10 +14,10 @@
     "isEntry": true,
     "src": "resources/css/studentTable.css"
   },
-  "resources/js/alert.js": {
-    "file": "js/alert.js",
+  "resources/js/alerts.js": {
+    "file": "js/alerts.js",
     "isEntry": true,
-    "src": "resources/js/alert.js"
+    "src": "resources/js/alerts.js"
   },
   "resources/js/app.js": {
     "file": "js/app2.js",

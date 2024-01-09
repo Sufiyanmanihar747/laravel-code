@@ -18,11 +18,8 @@ class IsAdmin
     {
         if (auth()->user() && auth()->user()->is_teacher  == "true")
         {
-            dump('this is checked user');
             return $next($request);
         }
-
-        // dd('this is end');
         return redirect('students');
     }
 }

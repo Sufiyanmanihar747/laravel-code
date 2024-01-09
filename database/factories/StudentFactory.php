@@ -22,8 +22,8 @@ class StudentFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' =>$this->faker->phoneNumber,
             'gender' => $this->faker->randomElement(['Male', 'Female']),
-            'course' => $this->faker->word,
-            'year' => $this->faker->randomElement(['First', 'Second', 'Third']),
+            'course' => $this->faker->randomElement(['engineering', 'business', 'medicine']),
+            'year' => $this->faker->randomElement(['1st Year', '2nd Year', '3rd Year','4th Year']),
             'address' => $this->faker->address,
 
         ];

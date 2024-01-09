@@ -27,15 +27,15 @@ class Student extends Model
         parent::boot();
         static::creating(function($student)
         {
-            $student->id = $student->uuid($student); 
+            $student->id = $student->uuid($student);
             $teacherIds = request()->input('teacher_id');
-            
+
             if($teacherIds)
             {
                 foreach ($teacherIds as $value)
                 {
                     $uuid = Str::uuid()->toString();
-                    $student->teachers()->attach($value, ['id' => $uuid]); 
+                    $student->teachers()->attach($value, ['id' => $uuid]);
                 }
             }
 
@@ -58,12 +58,12 @@ class Student extends Model
 
         static::deleting(function($name)
         {
-            dump('this is deleting');
+            // dump('this is deleting');
         });
 
         static::deleted(function($name)
         {
-            dump('this is deleted');
+            // dump('this is deleted');
         });
 
         static::saving(function($name)

@@ -1,145 +1,142 @@
-<!DOCTYPE html>
+@extends('layouts.app')
 
-<head>
-  <title>form</title>
-  <!-- <link rel="stylesheet" href="{{ asset('bootstrap.css') }}"> -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-
-<body style="
-background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);">
-  {!! Form::open([
-      'url' => route('students.store'),
-      'files' => 'true',
-      'method' => 'post',
-  ]) !!}
-  <!-- <pre>
-            @php
-              print_r($errors->all());
-            @endphp
-        </pre> -->
-  @csrf
-  <div class=" my-2  d-flex justify-content-center">
-    <div class="form-control px-3 py-1 col-md-6"
-      style="backdrop-filter: blur(40px);
-            background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
-      <h3 class="text-center">Registration form</h3>
-      <div class="form-group">
-        <label class="font-weight-bold" for="name">Full Name</label>
-        {!! Form::text('name', '', [
-            'class' => 'form-control',
-            'placeholder' => 'Enter name',
+@section('content')
+    <div class="container" style="margin-top: 4rem!important;">
+        {!! Form::open([
+        'url' => isset($student) ? route('students.update', $student->id) : route('students.store'),
+        'files' => 'true',
+        'method' => isset($student) ? 'PUT' : 'POST',
+        'class' => 'bg-white shadow-lg mt-5 pt-2 pb-3 rounded px-2 mx-5'
         ]) !!}
-        <span class="text-danger">
-          @error('name')
-            {{ $message }}
-          @enderror
-        </span>
-      </div>
-      <div class="form-group">
-        <label class="font-weight-bold" for="email">Email</label>
-        {!! Form::email('email', '', [
-            'class' => 'form-control',
-            'placeholder' => 'Enter your email',
-        ]) !!}
-        <span class="text-danger">
-          @error('email')
-            {{ $message }}
-          @enderror
-        </span>
-      </div>
-      <div class="form-group">
-        <label class="font-weight-bold" for="phone">Phone</label>
-        {!! Form::tel('phone', '', [
-            'class' => 'form-control',
-            'placeholder' => 'Enter your number',
-        ]) !!}
-        <span class="text-danger">
-          @error('phone')
-            {{ $message }}
-          @enderror
-        </span>
-      </div>
-      <div class="form-group">
-        <label class="font-weight-bold" for="gender">Gender</label><br>
-        {!! Form::radio('gender', 'Male') !!} Male
-        {!! Form::radio('gender', 'Female') !!} Female
-      </div>
+        @csrf
 
-      <div class="form-group">
-        <span class="text-danger">
-          @error('teacher_id')
-            {{ $message }}
-          @enderror
-        </span>
+        @if(isset($student))
+            @method('PUT')
+        @endif
 
-        <label class="font-weight-bold">Select Teachers</label>
-        @foreach ($teachers as $teacher)
-          <div class="form-check">
-            {!! Form::checkbox('teacher_id[]', $teacher->id, null, [
-                'class' => 'form-check-input',
-            ]) !!}
-            <label for="teacher_id" class="form-check-label">{{ $teacher->name }}</label>
-          </div>
-        @endforeach
-      </div>
+        <a href="{{ route('students.index') }}" class="position-absolute display-3 fw-light lh-3 text-decoration-none" style="top: 47px;">
+            &larr;
+        </a>
+        <h2 class="text-center text-dark mb-4">{{ isset($student) ? 'Edit Student' : 'Add Student' }}</h2>
+        <div class="form-row justify-content-center" style="gap: 35px">
+            <div class="form-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="name">Name:</label>
+                <span class="text-danger">
+                    @error('name')
+                    {{ $message }}
+                    @enderror
+                </span>
+                {!! Form::text('name',isset($student) ? $student->name : null, [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Enter name',
+                ]) !!}
+            </div>
+            <div class="form-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="email">Email:</label>
+                <span class="text-danger">
+                    @error('email')
+                    {{ $message }}
+                    @enderror
+                </span>
+                {!! Form::email('email',isset($student) ? $student->email : null, [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Enter your email',
+                ]) !!}
+            </div>
+        </div>
+        <div class="form-row justify-content-center" style="gap: 35px">
+            <div class="form-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="course">Course:</label>
+                <span class="text-danger">
+                    @error('course')
+                    {{ $message }}
+                    @enderror
+                </span>
+                {!! Form::select('course', [
+                'engineering' => 'Engineering',
+                'business' => 'Business',
+                'medicine' => 'Medicine'], isset($student) ? $student->course : null,
+                ['class' => 'form-control h-75',
+                'placeholder' => 'Select Course',
+                'required' => 'required']) !!}
+            </div>
 
-      <div class="form-group">
-        <label class="font-weight-bold" for="address">Course</label>
-        {!! Form::text('course', '', [
-            'class' => 'form-control',
-            'placeholder' => 'Enter course',
-        ]) !!}
-        <span class="text-danger">
-          @error('course')
-            {{ $message }}
-          @enderror
-        </span>
-      </div>
+            <div class="form-group col-md-5  ">
+                <label class="font-weight-bold m-0" for="year">Year:</label>
+                <span class="text-danger">
+                    @error('year')
+                    {{ $message }}
+                    @enderror
+                </span>
+                {!! Form::select('year', [
+                '1st Year' => '1st Year',
+                '2nd Year' => '2nd Year',
+                '3rd Year' => '3rd Year',
+                '4th Year' => '4th Year'
+                ], isset($student) ? $student->year : null, [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Select Year',
+                'required' => 'required']) !!}
+            </div>
+        </div>
+        <div class="form-row justify-content-center" style="gap: 35px">
+            <div class="form-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="phone">Phone:</label>
+                <span class="text-danger">
+                    @error('phone')
+                    {{ $message }}
+                    @enderror
+                </span>
+                {!! Form::tel('phone', isset($student) ? $student->phone : null, [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Enter your number',
+                ]) !!}
+            </div>
 
-      <div class="form-group">
-        <label class="font-weight-bold" for="address">Year</label>
-        {!! Form::text('year', '', [
-            'class' => 'form-control',
-            'placeholder' => 'Enter Year',
-        ]) !!}
-        <span class="text-danger">
-          @error('year')
-            {{ $message }}
-          @enderror
-        </span>
-      </div>
+            <div class="form-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="gender">Gender:</label>
+                {!! Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], isset($student) ? $student->gender : null, ['class' => 'form-control
+                h-75', 'placeholder' => 'Select Gender']) !!}
+            </div>
 
-      <div class="form-group">
-        <label class="font-weight-bold" for="address">Address</label>
-        {!! Form::text('address', '', [
-            'class' => 'form-control',
-            'placeholder' => 'Enter address',
-        ]) !!}
-        <span class="text-danger">
-          @error('address')
-            {{ $message }}
-          @enderror
-        </span>
-      </div>
-      <div class="form-group">
-        <label class="font-weight-bold" for="image">Upload Image</label>
-        {!! Form::file('image', [
-            'class' => 'form-control',
-            'accept' => 'image/*',
-            'files' => 'true',
-        ]) !!}
-        {{-- <span class="text-danger">
-                        @error('Image')
-                        {{$message}}
-                        @enderror
-                    </span> --}}
-      </div>
-      <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
-      <button type="reset" class="mx-3 btn btn-secondary">Reset</button>
-    </div>
-  </div>
-</body>
+        </div>
+        <div class="form-row justify-content-center" style="gap: 35px">
 
-</html>
+            <div class="form-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="address">Address:</label>
+                <span class="text-danger">
+                    @error('address')
+                    {{ $message }}
+                    @enderror
+                </span>
+                {!! Form::text('address', isset($student) ? $student->address : null, [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Enter address',
+                ]) !!}
+            </div>
+
+            <div class="from-group col-md-5 ">
+                <label class="font-weight-bold m-0" for="teacher_id[]">Select Teachers:</label>
+                {!! Form::select('teacher_id[]', $teachers->pluck('name', 'id'), isset($student) ? $student->teachers : null, ['class' => 'form-control h-75',
+                'multiple' => 'multiple', 'placeholder' => 'Select Teacher']) !!}
+
+            </div>
+        </div>
+
+        <div class="form-row justify-content-center" style="gap: 35px">
+            <div class="form-group col-md-8">
+                <label class="font-weight-bold m-0" for="image">Upload Image:</label>
+                <span>{{isset($student) ? $student->image : null}}</span>
+
+                {!! Form::file('image',[
+                'class' => 'form-control h-75',
+                'accept' => 'image/*',
+                'files' => 'true',
+                ]) !!}
+            </div>
+        </div>
+        <div class="form-row justify-content-center" style="gap: 35px">
+            <button type="submit" class="btn btn-primary mt-3 col-md-5 ">Submit</button>
+        </div>
+        {!! Form::close() !!}
+@endsection

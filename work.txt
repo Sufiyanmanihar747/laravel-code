@@ -71,7 +71,6 @@ browser cache limit?
 $response = response()->view('home');
 $response->header('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
 return $response;
-
 Yes, browser cache is limited, and there are constraints on the amount of data and the duration for which resources are stored in the cache. The limits can vary between browsers and devices
 
 
@@ -80,66 +79,6 @@ Yes, browser cache is limited, and there are constraints on the amount of data a
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 =>pending works
-phone no --
-logout
-css fix
-layout
 requests in teachers
-multiple authentication
+dropdown for teachers

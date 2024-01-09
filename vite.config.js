@@ -12,7 +12,7 @@ export default defineConfig({
                 'resources/css/profile.css',
                 'resources/css/studentTable.css',
                 'resources/js/eye.js',
-                'resources/js/alert.js',
+                'resources/js/alerts.js',
             ],
             refresh: true,
           }),

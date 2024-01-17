@@ -16,8 +16,8 @@
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">{{ __('Dashboard') }}</div>
+        <div class="card shadow">
+          <div class="card-header font-weight-bold">{{ __('Dashboard') }}</div>
 
           <div class="card-body">
             @if (session('status'))
@@ -25,12 +25,27 @@
                 {{ session('status') }}
               </div>
             @endif
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 justify-content-center">
               @if (Auth::user()->is_teacher == 'false')
-                <li><a href="{{ route('students.index') }}">Students</a></li>
+                    <a href="{{ route('students.index') }}" class="w-100 text-dark">
+                        <div class="p-4 rounded-lg text-center" style=" background-color: lime; font-weight:bold;font-size: x-large;">
+                            <div>Student Record</div>
+                            <div>{{DB::table('students')->count()}}</div>
+                        </div>
+                    </a>
               @else
-                <li><a href="{{ route('students.index') }}">Students</a></li>
-                <li><a href="{{ route('teachers.index') }}">Teachers</a></li>
+                <a href="{{ route('students.index') }}" class="w-100 text-dark">
+                    <div class="p-4 rounded-lg text-center" style=" background-color: lime; font-weight:bold;font-size: x-large;">
+                        <div>Student Record</div>
+                        <div>{{DB::table('students')->count()}}</div>
+                    </div>
+                </a>
+                <a href="{{ route('teachers.index') }}" class="w-100 text-dark">
+                    <div class="bg-warning p-4 rounded-lg text-center" style="font-weight:bold;font-size: x-large;">
+                        <div>Teachers Record</div>
+                        <div>{{DB::table('teachers')->count()}}</div>
+                    </div>
+                </a>
               @endif
             </div>
           </div>

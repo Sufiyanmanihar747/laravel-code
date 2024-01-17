@@ -24,4 +24,5 @@ Route::middleware(['auth'])->group(function()
     Route::resource('teachers', TeacherController::class)->middleware('is_admin');
 });
 
-// Route::get('/student', [HomeController::class, 'students_dashboard']);
+Route::get('/getteachers/{courseId}', [StudentController::class, 'getTeachers']);
+Route::get('/getstudents/{courseId}', [TeacherController::class, 'getStudents']);

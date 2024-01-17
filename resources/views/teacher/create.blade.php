@@ -1,81 +1,130 @@
-<!DOCTYPE html>
+@extends('layouts.app')
 
-<head>
-    <title>Teacher's Form</title>
-    <!-- <link rel="stylesheet" href="{{ asset('bootstrap.css') }}"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-
-<body style="
-background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);"> 
+@section('content')
+<div class="container" style="margin-top: 3rem!important;">
     {!! Form::open([
-        'url' => route('teachers.store'),
+        'url' => isset($teacher) ? route('teachers.update', $teacher->id) : route('teachers.store'),
         'files' => 'true',
-        'method' => 'post',
-        ]) !!}
-        <!-- <pre>
-            @php
-            print_r($errors->all());
-            @endphp
-        </pre> -->
-        @csrf
-        <div class=" my-2  d-flex justify-content-center">
-            <div class="form-control px-3 py-1 col-md-6" style="backdrop-filter: blur(40px);
-            background-color: transparent;color: white;box-shadow: 1px 1px 20px black;">
-                <h3 class="text-center">Registration form</h3>
-                <div class="form-group">
-                    <label class="font-weight-bold" for="fullname">Full Name</label>
-                    {!! Form::text('name','',[
-                        'class' => 'form-control',
-                        'placeholder' => 'Enter name',
-                    ]) !!}
-                    <span class="text-danger">
-                        @error('name')
-                        {{$message}}
-                        @enderror
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold" for="email">Email</label>
-                    {!! Form::email('email','',[
-                        'class' => 'form-control',
-                        'placeholder' => 'Enter your email'
-                    ])!!}
-                    <span class="text-danger">
-                        @error('email')
-                        {{$message}}
-                        @enderror
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold" for="email">Subject</label>
-                    {!! Form::text('subject','',[
-                        'class' => 'form-control',
-                        'placeholder' => 'Subject'
-                    ])!!}
-                    <span class="text-danger">
-                        @error('subject')
-                        {{$message}}
-                        @enderror
-                    </span>
-                </div>
-                <label class="font-weight-bold">Select Students</label>
-                <div class="form-group d-flex flex-column">
-                    @foreach($students as $student)
-                        <div class="form-check d-flex align-items-center mr-3">
-                            {!! Form::checkbox('student_id[]', $student->id, null,
-                                [
-                                    'class' => 'form-check-input'
-                                ]) 
-                            !!}
-                            <label  for="teacher_id" class="form-check-label">{{ $student->name }}</label>
-                        </div>
-                    @endforeach
-                </div>
-                <button type="submit" class="btn btn-primary" id="showAlertBtn">Submit</button>
-                <button type="reset" class="mx-3 btn btn-secondary">Reset</button>
-            </div>
-        </div>
-</body>
+        'method' => isset($teacher) ? 'PUT' : 'POST',
+        'class' => 'bg-white shadow-lg mt-5 pt-2 pb-3 rounded px-4 mx-5',
+    ]) !!}
+    @csrf
 
-</html>
+    @if (isset($teacher))
+      @method('PUT')
+    @endif
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <a href="{{ url()->previous() }}" class="text-decoration-none fs-5">Back</a>
+      <h2 class="text-center text-dark m-0 ">{{ isset($teacher) ? 'Edit Teacher' : 'Add Teacher' }}</h2>
+      <div></div>
+    </div>
+
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 text-center">
+        <img class="rounded-circle text-center" id="uploadedImage"
+          src="{{ isset($teacher->image) ? url('storage/images/' . $teacher->image) : url('https://banner2.cleanpng.com/20190221/gw/kisspng-computer-icons-user-profile-clip-art-portable-netw-c-svg-png-icon-free-download-389-86-onlineweb-5c6f7efd8fecb7.6156919015508108775895.jpg') }}"
+          width="125" height="125" alt="Profile Image">
+      </div>
+      <div class="from-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="student_id[]">Select Students:</label>
+        {!! Form::select('student_id[]', isset($teacher)?$teacher->students->pluck('name', 'id'):[], isset($teacher) ? $teacher->students : null, [
+            'class' => 'form-control h-75',
+            'multiple' => 'multiple',
+            'id' => 'student-select',
+        ]) !!}
+      </div>
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="name">Name:</label>
+        <span class="text-danger">
+          @error('name')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::text('name', isset($teacher) ? $teacher->name : null, [
+            'class' => 'form-control h-75',
+            'placeholder' => 'Enter name',
+        ]) !!}
+      </div>
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="branch">Branch:</label>
+        <span class="text-danger">
+          @error('branch')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::select(
+            'branch',
+            [
+                'engineering' => 'Engineering',
+                'business' => 'Business',
+                'medicine' => 'Medicine',
+            ],
+            isset($teacher) ? $teacher->branch : null,
+            ['class' => 'form-control h-75', 'placeholder' => 'Select branch', 'required' => 'required', 'id' => 'course-student',],
+        ) !!}
+      </div>
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="email">Email:</label>
+        <span class="text-danger">
+          @error('email')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::email('email', isset($teacher) ? $teacher->email : null, [
+            'class' => 'form-control h-75',
+            'placeholder' => 'Enter your email',
+        ]) !!}
+      </div>
+
+      <div class="form-group col-md-5  ">
+        <label class="font-weight-bold m-0" for="salary">Salary:</label>
+        <span class="text-danger">
+          @error('salary')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::number(
+            'salary',
+            isset($teacher) ? $teacher->salary : null,
+            [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Enter your salary',
+                'required' => 'required',
+            ],
+        ) !!}
+      </div>
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="phone">Phone:</label>
+        <span class="text-danger">
+          @error('phone')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::tel('phone', isset($teacher) ? $teacher->phone : null, [
+            'class' => 'form-control h-75',
+            'placeholder' => 'Enter your number',
+        ]) !!}
+      </div>
+
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="gender">Gender:</label>
+        {!! Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], isset($teacher) ? $teacher->gender : null, [
+            'class' => 'form-control
+                    h-75',
+            'placeholder' => 'Select Gender',
+        ]) !!}
+      </div>
+
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <button type="submit" class="btn btn-primary mt-3 col-md-5 ">Submit</button>
+    </div>
+    {!! Form::close() !!}
+</div>
+@endsection

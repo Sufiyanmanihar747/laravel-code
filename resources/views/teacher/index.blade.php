@@ -1,89 +1,82 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
-        <div class="col-12 text-left d-flex justify-content-end align-items-center rounded"
-        style="background-image: linear-gradient(91.53deg, #1A335D 0%, #1EAAE2 100%">
-
-        <form class="form-inline my-2 my-lg-0" action="{{route('teachers.index')}}">
-            <input class="form-control mr-sm-2" style="width: 44rem;" name="search" type="search" placeholder="Search name" aria-label="Search">
-            <button class="btn btn-success my-2 my-sm-0 mr-5" type="submit">Search</button>
-        </form>
-        <a href="{{ route('teachers.create')}}"><button class="btn btn-warning text-white my-3 text-dark">Add Teacher</button></a>
-        <img src="https://sangamcrm.com/wp-content/uploads/2021/09/Main-LOGO.png" style="width:68px;position: absolute;left: 16px;" alt="">
+<div id="container-for-ajax"></div>
+<div class="container" style="margin-top: 4rem!important;">
+    <div class=" text-left d-flex justify-content-end align-items-center rounded">
+        <a href="{{ route('teachers.create') }}">
+            <button class="btn btn-warning text-white mb-2 text-dark">Add Teacher</button>
+        </a>
     </div>
-        <table class="table border shadow-sm">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Subject</th>
-                    <th>Student Name</th>
-                    <th>Created at</th>
-                    <th>Updated at</th>
-                    <th colspan="2">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($teachers as $teacher)
-                <tr class="shadow-lg">
-                    <td><a href="{{ route('teachers.show', [$teacher->id]) }}">{{$teacher->name}}</a></td>
-                    <td>{{$teacher->email}}</td>
-                    <td>{{$teacher->subject}}</td>
-                    <td>
+    <table id="table" class="table border shadow-sm">
+        <thead>
+            <tr style="height:23px">
+                <th class="text-center py-0" style="vertical-align:middle">Name</th>
+                <th class="text-center py-0" style="vertical-align:middle">Email</th>
+                <th class="text-center py-0" style="vertical-align:middle">Phone</th>
+                <th class="text-center py-0" style="vertical-align:middle">Salary</th>
+                <th class="text-center py-0" style="vertical-align:middle">Branch</th>
+                <th class="text-center py-0" style="vertical-align:middle">Students</th>
+                <th class="text-center ">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($teachers as $teacher)
+            <tr class="shadow-lg">
+                <td class="py-2" style="vertical-align:middle"><a href="{{ route('teachers.show', [$teacher->id]) }}">{{
+                        $teacher->name }}</a></td>
+                <td class="py-2 px-4" style="vertical-align:middle">
+                    <!-- {{-- <div class="d-inline-block text-truncate" style="max-width: 100px;"> --}} -->
+                        {{ $teacher->email }}
+                        <!-- {{-- </div> --}} -->
+                </td>
+                <td class="py-2 px-4" style="vertical-align:middle">{{ $teacher->phone }}</td>
+                <td class="py-2 px-4" style="vertical-align:middle">{{ $teacher->salary }}</td>
+                <td class="py-2 px-4" style="vertical-align:middle">{{ $teacher->branch }}</td>
+                <td class="py-2" style="vertical-align:middle">
+                    <div class="d-inline-block text-truncate" style="max-width: 100px;">
                         @if($teacher->students->isNotEmpty())
-
-                            <ul>
-                                @foreach($teacher->students as $student)
-                                <a href="{{ route('students.show', $student->id) }}"><li>{{$student->name}}</li></a>
-                                @endforeach
-                            </ul>
-
+                            @foreach ($teacher->students as $student)
+                            <a href="{{ route('students.show', $student->id) }}">
+                                {{$student->name}}
+                            </a>
+                            @endforeach
                         @else
-
                             No student
-
                         @endif
-                    </td>
-                    <td>{{$teacher->created_at}}</td>
-                    <td>{{$teacher->updated_at}}</td>
-                    <td>
+                    </div>
+                </td>
+                <td class="py-2 px-4" style="vertical-align:middle">
+                    <div class="d-flex">
                         <a href="{{ route('teachers.edit', [$teacher->id]) }}">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg" style="width:30px;" alt="edit">
-                        </a>
-                    </td>
-                    <td>
-                        <form action="{{ route('teachers.destroy', [$teacher->id]) }}" method="post" onsubmit="return showCancelAlert()">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"
+                                style="width:20px;" alt="edit"></a>
+                        <form action="{{ route('teachers.destroy', [$teacher->id]) }}" method="post"
+                            onsubmit="return showCancelAlert()">
                             @method('DELETE')
                             @csrf
                             <button type="submit" style="border:none;" id="showAlertBtn">
-
-                                <img style="width:30px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="">
-
+                                <img style="width:20px;" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png"
+                                    alt="">
                             </button>
                         </form>
-                    </td>
-                </tr>
-                {{-- @ddd($teacher); --}}
-                @endforeach
-                {{-- @dd($teacher); --}}
-                {{-- {{ddd('dump my article',$teacher);}} --}}
-            </tbody>
-        </table>
-        <div class="row">
-            <div class="col-md-12 pagination">
-                {{ $teachers->links() }}
-            </div>
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    {{-- <div class="row">
+        <div class="col-md-12 pagination">
+            {{ $teachers->links() }}
         </div>
-        <div class="row">
-            <div class="col-md-12 pagination">
-                {{ $teachers->links() }}
-            </div>
-        </div>
-    </div>
-</body>
+    </div> --}}
+</div>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<td>
 
+</td>
 @endsection

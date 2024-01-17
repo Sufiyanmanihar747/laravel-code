@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('assets/css/studentTable.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/passwordEye.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 
 </head>
 
@@ -32,9 +33,10 @@
     <nav class="p-0 navbar navbar-expand-md shadow-sm position-fixed w-100 z-3 shadow"
       style="backdrop-filter: blur(10px); background-color: #ffffff45;font-weight: bold;">
       <div class="container">
-        <a class="navbar-brand p-1" href="{{ url('/students') }}">
+        <a class="navbar-brand p-1" href="{{ url('/') }}">
           <div>
-            <img src="https://sangamcrm.com/wp-content/uploads/2021/09/Main-LOGO.png" width="70px" alt="" class="mr-5">
+            <img src="https://sangamcrm.com/wp-content/uploads/2021/09/Main-LOGO.png" width="50px" alt=""
+              class="mr-5">
           </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -43,25 +45,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
-
+            @if (request()->is('students*'))
+            <a href="{{route('students.index')}}" class="text-dark">Students</a>
+            @elseif(request()->is('teacher*'))
+            <a href="{{route('teachers.index')}}" class="text-dark">Teachers</a>
+            @elseif(request()->is('login*'))
+            {{ 'Login' }}
+            @elseif(request()->is('/'))
+            {{ 'Home' }}
+            @else
+            {{ 'Registration' }}
+            @endif
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ms-auto align-items-center">
-            <form class="form-inline my-2 my-lg-0" action="{{route('students.index')}}">
-                <input class="form-control mr-sm-2" name="search" type="search"
-                    placeholder="Search name" aria-label="Search">
-                <button class="btn btn-success my-2 my-sm-0 mr-5" type="submit">Search</button>
+            <form class="form-inline my-2 my-lg-0" action="{{ route('students.index') }}">
+              <input class="form-control mr-sm-2" name="search" type="search"placeholder="Search name"
+                aria-label="Search" type="submit">
             </form>
-            @if (request()->is('students*'))
-                {{'Students Table'}}
-            @elseif(request()->is('teacher*'))
-              {{ 'Teachers Table' }}
-            @elseif(request()->is('login*'))
-              {{ 'Login' }}
-            @elseif(request()->is('/'))
-              {{ 'Home' }}
-            @else
-              {{ 'Registration' }}
-            @endif
+
             <!-- Authentication Links -->
             @guest
               @if (Route::has('login'))
@@ -111,11 +112,93 @@
   <script src="{{ asset('jquery.js') }}"></script>
   <script src="{{ asset('assets/js/eye.js') }}"></script>
   <script src="{{ asset('assets/js/alerts.js') }}"></script>
+  <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
 </body>
 <script>
-function showCancelAlert() {
-    var result = window.confirm('Are you sure to DELETE this Account!!');
+
+  $(document).ready(function() {
+    $('#table').dataTable({
+        responsive: true
+    });
+
+    //This is for students
+    console.log('this is ajax');
+        $('#course-student').change(function () {
+            console.log('this is running');
+            var courseId = $('#course-student').val();
+            console.log(courseId);
+            $.ajax({
+                type: 'GET',
+                url: '/getstudents/' + courseId,
+                dataType: 'json',
+
+                success: function (data) {
+                    console.log(data);
+                    var options = '';
+                    if ($.isEmptyObject(data)) {
+                        $('#student-select').html('');
+                    }
+                    else{
+                        $.each(data, function (key, value) {
+                            options += '<option value="' + key + '">' + value + '</option>';
+                        });
+                        $('#student-select').html(options);
+                    }
+                    console.log(data);
+                },
+                error: function () {
+                    console.log('Error fetching teachers');
+                }
+            });
+        });
+  });
+
+  function showCancelAlert() {
+    var result = window.confirm('Are you sure to DELETE this Record!!');
     return result;
-}
+  }
+  document.getElementById('imageInput').addEventListener('change', function() {
+    var input = this;
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      document.getElementById('uploadedImage').src = e.target.result;
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  });
+
+  //This is for teachers
+    $(document).ready(function () {
+        console.log('this is ajax');
+        $('#course-select').change(function () {
+            console.log('this is running');
+            var courseId = $('#course-select').val();
+            console.log(courseId);
+
+            $.ajax({
+                type: 'GET',
+                url: '/getteachers/' + courseId,
+                dataType: 'json',
+
+                success: function (data) {
+                    var options = '';
+                    if ($.isEmptyObject(data)) {
+                        $('#teacher-select').html('');
+                    }
+                    else{
+                        $.each(data, function (key, value) {
+                            options += '<option value="' + key + '">' + value + '</option>';
+                        });
+                        $('#teacher-select').html(options);
+                    }
+                    console.log(data);
+                },
+                error: function () {
+                    console.log('Error fetching teachers');
+                }
+            });
+        });
+    });
 </script>
 </html>

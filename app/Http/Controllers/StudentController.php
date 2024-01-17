@@ -19,14 +19,14 @@ class StudentController extends Controller
 
     public function __construct(StudentRepositoryInterface $studentRepository)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->studentRepository = $studentRepository;
     }
 
     public function index(Request $request, StudentRepositoryInterface $studentRepository) {
 
         $search = $request->input('search');
-
+        $students = Student::all();
         if($search)
         {
             $students = $studentRepository->search($search);
@@ -35,7 +35,7 @@ class StudentController extends Controller
         {
             $students = $studentRepository->paginate(5);
         }
-
+        // $students = $studentRepository->all();
         return view('student.index', compact('students'));
     }
 
@@ -89,7 +89,6 @@ class StudentController extends Controller
     public function update(StorePostRequest $request,$id)
     {
         $student = $this->studentRepository->find($id);
-
         if($student)
         {
             $data = $request->only(['name', 'email', 'phone', 'gender', 'course', 'year', 'address', 'image']);
@@ -102,6 +101,7 @@ class StudentController extends Controller
 
             $student = $this->studentRepository->find($id);
             $this->studentRepository->update($id, $data);
+            dump('this is student controller');
             return redirect('students');
         }
     }
@@ -125,5 +125,11 @@ class StudentController extends Controller
             $this->studentRepository->delete($id);
         }
         return redirect('students');
+    }
+
+    public function getTeachers($branch)
+    {
+        $teachers = Teacher::where('branch', $branch)->pluck('name','id');
+        return response()->json($teachers);
     }
 }

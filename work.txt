@@ -73,6 +73,12 @@ $response->header('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
 return $response;
 Yes, browser cache is limited, and there are constraints on the amount of data and the duration for which resources are stored in the cache. The limits can vary between browsers and devices
 
+PLUCK:--
+$names = DB::table('users')->pluck('name');
+// Result: ['John Doe', 'Jane Doe', 'Bob Smith', ...]
+SELECT:--
+$users = DB::table('users')->select('name', 'email')->get();
+// Result: Collection of stdClass objects with only 'name' and 'email' properties
 
 
 
@@ -81,4 +87,3 @@ Yes, browser cache is limited, and there are constraints on the amount of data a
 
 =>pending works
 requests in teachers
-dropdown for teachers

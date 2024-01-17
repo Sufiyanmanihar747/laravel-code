@@ -43,7 +43,6 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        echo 'this is create';
         $students = Student::all();
         return view('teacher.create', compact('students'));
     }
@@ -53,7 +52,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only(['name', 'email', 'subject','student_id']);
+        $data = $request->only(['name', 'email', 'phone', 'gender','salary', 'branch','student_id']);
         $teacher = $this->teacherRepository->create($data);
         return redirect('teachers');
     }
@@ -74,7 +73,7 @@ class TeacherController extends Controller
     {
         $students = Student::all();
         $teacher = $this->teacherRepository->find($id);
-        return view('teacher.edit', compact('teacher'), compact('students'));
+        return view('teacher.create', compact('teacher'), compact('students'));
     }
 
     /**
@@ -86,7 +85,7 @@ class TeacherController extends Controller
 
         if($teacher)
         {
-            $data = $request->only(['name', 'email', 'subject']);
+            $data = $request->only(['name', 'email', 'phone', 'gender','salary', 'branch','student_id']);
             $data['student_id'] = $request->input('student_id', []);
             $this->teacherRepository->update($id, $data);
             return redirect('teachers');
@@ -107,5 +106,11 @@ class TeacherController extends Controller
         }
 
         return redirect('teachers');
+    }
+
+    public function getStudents($branch)
+    {
+        $students = Student::where('course', $branch)->pluck('name','id');
+        return response()->json($students);
     }
 }

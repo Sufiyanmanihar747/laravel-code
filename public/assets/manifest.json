@@ -1,4 +1,9 @@
 {
+  "resources/css/datatables.min.css": {
+    "file": "css/datatables.min.css",
+    "isEntry": true,
+    "src": "resources/css/datatables.min.css"
+  },
   "resources/css/passwordEye.css": {
     "file": "css/passwordEye.css",
     "isEntry": true,
@@ -23,6 +28,11 @@
     "file": "js/app2.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/datatables.min.js": {
+    "file": "js/datatables.min2.js",
+    "isEntry": true,
+    "src": "resources/js/datatables.min.js"
   },
   "resources/js/eye.js": {
     "file": "js/eye.js",

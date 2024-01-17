@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 namespace App\Repositories;
 
 use App\Repositories\Interfaces\TeacherRepositoryInterface;
 use App\Models\Teacher;
+use Illuminate\Support\Str;
 
 class TeacherRepository implements TeacherRepositoryInterface{
-    
+
     public function all()
     {
         return Teacher::all();
@@ -26,11 +27,40 @@ class TeacherRepository implements TeacherRepositoryInterface{
     {
         $teacher = Teacher::find($id);
 
-        if ($data['student_id']) 
+        $oldStudents = $teacher->students->pluck('id')->toArray();
+        $newStudents = $data['student_id'] ?? [];
+        dump('new' ,$newStudents);
+        $addedStudents = array_diff($newStudents, $oldStudents);
+        dump('new' ,$addedStudents);
+        $removedStudents = array_diff($oldStudents, $newStudents);
+        dump('new' ,$removedStudents);
+        // dd('attached');
+
+        // for new teachers added
+        if($addedStudents)
         {
-            $teacher->students()->sync($data['student_id']);
+            foreach ($addedStudents as $value)
+            {
+                $uuid = Str::uuid()->toString();
+                $teacher->students()->attach($value, ['id' => $uuid]);
+            }
         }
-        
+
+        // for removed teachers
+        if($removedStudents && count($removedStudents) > 0)
+        {
+            foreach ($removedStudents as  $value)
+            {
+                $teacher->students()->sync($value);
+            }
+        }
+
+        // when there is no teacher
+        if(count($oldStudents) == 1 && $removedStudents == $oldStudents)
+        {
+            $teacher->students()->detach();
+        }
+
         return $teacher->update($data);
     }
 
@@ -39,12 +69,12 @@ class TeacherRepository implements TeacherRepositoryInterface{
         return Teacher::destroy($id);
     }
 
-    public function paginate($page) 
+    public function paginate($page)
     {
         return Teacher::paginate($page);
     }
 
-    public function search($search) 
+    public function search($search)
     {
         return Teacher::where('name', 'like', '%' . $search . '%')->paginate(3);;
     }

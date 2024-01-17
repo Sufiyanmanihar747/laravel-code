@@ -1,37 +1,137 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Profile</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
-</head>
-<body style="background: linear-gradient(180deg, #1A335D 0%, #1EAAE2 100%);height:100vh">
-    <pre>
-    <?php
-    // print_r($teacher);
-    ?>
-    </pre>
-    <div class="profile-container" style="background-color:#1C6E9F;">
-        <button class="close-btn"><a href="{{route('teachers.index');}}">&times;</a></button>
-        <div class="profile-details">
-            <h2>{{$teacher->name}}</h2>
-            <p><b>Email:</b>  {{$teacher->email}}</p>
-            <p><b>Subject:</b>  {{$teacher->subject}}</p>
-            <p><b>Students:</b>  
-                @if($teacher->students->isNotEmpty())
-                    @foreach($teacher->students as $student)
-                        {{$student->name}}, 
-                    @endforeach
-                @else
-                    No student
-                @endif
-            </p>
-            <p><b>Created at:</b>  {{$teacher->created_at}}</p>
-            <p><b>Last update:</b>  {{$teacher->updated_at}}</p>
-        </div>
-        <br>
-        <div>
-            <a href="{{route('teachers.edit',[$teacher->id])}}"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg" style="width:43px;"alt="edit button"></a>
-        </div>
+@extends('layouts.app')
+
+@section('content')
+<div class="container" style="margin-top: 4rem!important;">
+    {!! Form::open([
+        'url' => isset($teacher) ? route('teachers.update', $teacher->id) : route('teachers.store'),
+        'files' => 'true',
+        'method' => isset($teacher) ? 'PUT' : 'POST',
+        'class' => 'bg-white shadow-lg mt-5 pt-2 pb-3 rounded px-4 mx-5',
+    ]) !!}
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <a href="{{ route('teachers.index') }}" class="text-decoration-none fs-5">Back</a>
+        <h2 class="text-center text-dark m-0 ">Teacher Profile</h2>
+        <a href="{{ route('teachers.edit', [$teacher->id]) }}">
+          <img width="25px" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Edit_Notepad_Icon.svg"
+            alt="edit button">
+        </a>
+      </div>
+
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 text-center">
+        <img class="rounded-circle text-center" id="uploadedImage"
+          src="{{ isset($teacher->image) ? url('storage/images/' . $teacher->image) : url('https://banner2.cleanpng.com/20190221/gw/kisspng-computer-icons-user-profile-clip-art-portable-netw-c-svg-png-icon-free-download-389-86-onlineweb-5c6f7efd8fecb7.6156919015508108775895.jpg') }}"
+          width="125" height="125" alt="Profile Image">
+      </div>
+      <div class="from-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="student_id[]">Select Students:</label>
+        {!! Form::select(
+            'student_id[]',
+            $teacher->students->pluck('name'),
+            isset($teacher) ? $teacher->students : null,
+            [
+                'class' => 'form-control h-75',
+                'disabled' => 'disabled',
+                'multiple' => 'multiple',
+            ],
+        ) !!}
+      </div>
     </div>
-</body>
-</html>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="name">Name:</label>
+        <span class="text-danger">
+          @error('name')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::text('name', isset($teacher) ? $teacher->name : null, [
+            'class' => 'form-control h-75',
+            'placeholder' => 'Enter name',
+            'disabled' => 'disabled',
+        ]) !!}
+      </div>
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="branch">Branch:</label>
+        <span class="text-danger">
+          @error('branch')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::select(
+            'branch',
+            [
+                'engineering' => 'Engineering',
+                'business' => 'Business',
+                'medicine' => 'Medicine',
+            ],
+            isset($teacher) ? $teacher->branch : null,
+            ['class' => 'form-control h-75', 'placeholder' => 'Select branch', 'required' => 'required', 'disabled' => 'disabled',],
+        ) !!}
+      </div>
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="email">Email:</label>
+        <span class="text-danger">
+          @error('email')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::email('email', isset($teacher) ? $teacher->email : null, [
+            'class' => 'form-control h-75',
+            'placeholder' => 'Enter your email',
+            'disabled' => 'disabled',
+        ]) !!}
+      </div>
+
+      <div class="form-group col-md-5  ">
+        <label class="font-weight-bold m-0" for="salary">Salary:</label>
+        <span class="text-danger">
+          @error('salary')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::number(
+            'salary',
+            isset($teacher) ? $teacher->salary : null,
+            [
+                'class' => 'form-control h-75',
+                'placeholder' => 'Enter your salary',
+                'disabled' => 'disabled',
+            ],
+        ) !!}
+      </div>
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="phone">Phone:</label>
+        <span class="text-danger">
+          @error('phone')
+            {{ $message }}
+          @enderror
+        </span>
+        {!! Form::tel('phone', isset($teacher) ? $teacher->phone : null, [
+            'class' => 'form-control h-75',
+            'placeholder' => 'Enter your number',
+            'disabled' => 'disabled',
+        ]) !!}
+      </div>
+
+      <div class="form-group col-md-5 ">
+        <label class="font-weight-bold m-0" for="gender">Gender:</label>
+        {!! Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], isset($teacher) ? $teacher->gender : null, [
+            'class' => 'form-control
+                    h-75',
+            'placeholder' => 'Select Gender',
+            'disabled' => 'disabled',
+        ]) !!}
+      </div>
+
+    </div>
+    <div class="form-row justify-content-center" style="gap: 35px">
+      <button type="submit" class="btn btn-primary mt-3 col-md-5 ">Submit</button>
+    </div>
+    {!! Form::close() !!}
+</div>
+@endsection

@@ -12,7 +12,7 @@ class Teacher extends Model
     use HasFactory;
     protected $table = "teachers";
     protected $primarykey = "teacher_id";
-    protected $fillable = ['name', 'email', 'subject'];
+    protected $fillable = ['name', 'email', 'phone', 'gender', 'salary', 'branch'];
     public function students()
     {
         // return $this->hasOne(Student::class, 'teacher_id');
@@ -26,7 +26,7 @@ class Teacher extends Model
 
         static::creating(function($teacher)
         {
-            $teacher->id = $teacher->uuid($teacher); 
+            $teacher->id = $teacher->uuid($teacher);
             $studentIds = request()->input('student_id');
 
             if($studentIds)
@@ -63,7 +63,7 @@ class Teacher extends Model
         {
             dump('this is deleted');
         });
-    
+
     }
 
 }

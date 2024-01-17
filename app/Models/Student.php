@@ -29,16 +29,16 @@ class Student extends Model
         {
             $student->id = $student->uuid($student);
             $teacherIds = request()->input('teacher_id');
-
+            // dd($teacherIds);
             if($teacherIds)
             {
                 foreach ($teacherIds as $value)
                 {
+                    dump('this is running');
                     $uuid = Str::uuid()->toString();
                     $student->teachers()->attach($value, ['id' => $uuid]);
                 }
             }
-
         });
 
         static::created(function($student)
@@ -46,9 +46,10 @@ class Student extends Model
             dump('this is created');
         });
 
-        static::updating(function($name)
+        static::updating(function($student)
         {
             dump('this is updating');
+            // dd('this is model event');
         });
 
         static::updated(function($name)
@@ -58,15 +59,15 @@ class Student extends Model
 
         static::deleting(function($name)
         {
-            // dump('this is deleting');
+            dump('this is deleting');
         });
 
         static::deleted(function($name)
         {
-            // dump('this is deleted');
+            dump('this is deleted');
         });
 
-        static::saving(function($name)
+        static::saving(function($student)
         {
             dump('this is saving');
         });

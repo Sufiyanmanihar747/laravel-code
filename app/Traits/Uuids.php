@@ -8,7 +8,7 @@ trait Uuids
 {
     protected function uuid($model)
     {
-        if (empty($model->{$model->getKeyName()})) 
+        if (empty($model->{$model->getKeyName()}))
         {
             $model->{$model->getKeyName()} = Str::uuid()->toString();
         }

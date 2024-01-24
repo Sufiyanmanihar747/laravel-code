@@ -21,7 +21,7 @@
                     {!! Form::text('name',$student->name,[
                         'class' => 'form-control',
                         'placeholder' => 'Enter name',
-                    ]) !!}
+                    ]) !!}  
                     <span class="text-danger">
                         @error('name')
                         {{$message}}

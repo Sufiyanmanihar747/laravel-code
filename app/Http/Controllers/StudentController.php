@@ -31,10 +31,10 @@ class StudentController extends Controller
         {
             $students = $studentRepository->search($search);
         }
-        else
-        {
-            $students = $studentRepository->paginate(5);
-        }
+        // else
+        // {
+        //     $students = $studentRepository->paginate(5);
+        // }
         // $students = $studentRepository->all();
         return view('student.index', compact('students'));
     }

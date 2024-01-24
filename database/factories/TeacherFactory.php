@@ -19,7 +19,10 @@ class TeacherFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'subject' => $this->faker->randomElement(['Physics', 'Chemistry', 'Maths']),
+            'phone' => $this->faker->phoneNumber(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'salary' => $this->faker->unique()->randomDigit,
+            'branch' => $this->faker->randomElement(['engineering', 'business', 'medicine']),
         ];
     }
 }

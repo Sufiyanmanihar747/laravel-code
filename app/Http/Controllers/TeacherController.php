@@ -25,15 +25,15 @@ class TeacherController extends Controller
     public function index(Request $request, TeacherRepositoryInterface $teacherRepository)
     {
         $search = $request->input('search');
-
+        $teachers = Teacher::all();
         if($search)
         {
             $teachers = $teacherRepository->search($search);
         }
-        else
-        {
-            $teachers = $teacherRepository->with('students')->paginate(5);
-        }
+        // else
+        // {
+        //     $teachers = $teacherRepository->with('students')->paginate(5);
+        // }
 
         return view('teacher.index', compact('teachers'));
     }

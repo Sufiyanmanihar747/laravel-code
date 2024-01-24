@@ -45,6 +45,7 @@
         {!! Form::text('name', isset($student) ? $student->name : null, [
             'class' => 'form-control h-75',
             'placeholder' => 'Enter name',
+            'style' =>'text-transform: capitalize;',
         ]) !!}
       </div>
       <div class="form-group col-md-5 ">
@@ -91,10 +92,10 @@
         {!! Form::select(
             'year',
             [
-                '1st Year' => '1st Year',
-                '2nd Year' => '2nd Year',
-                '3rd Year' => '3rd Year',
-                '4th Year' => '4th Year',
+                '1st year' => '1st Year',
+                '2nd year' => '2nd Year',
+                '3rd year' => '3rd Year',
+                '4th year' => '4th Year',
             ],
             isset($student) ? $student->year : null,
             [
@@ -121,9 +122,8 @@
 
       <div class="form-group col-md-5 ">
         <label class="font-weight-bold m-0" for="gender">Gender:</label>
-        {!! Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], isset($student) ? $student->gender : null, [
-            'class' => 'form-control
-                    h-75',
+        {!! Form::select('gender', ['male' => 'Male', 'female' => 'Female'], isset($student) ? $student->gender : null, [
+            'class' => 'form-control h-75',
             'placeholder' => 'Select Gender',
         ]) !!}
       </div>

@@ -23,7 +23,7 @@
         <tbody>
             @foreach ($teachers as $teacher)
             <tr class="shadow-lg">
-                <td class="py-2" style="vertical-align:middle"><a href="{{ route('teachers.show', [$teacher->id]) }}">{{
+                <td class="py-2" style="vertical-align:middle;text-transform: capitalize;"><a href="{{ route('teachers.show', [$teacher->id]) }}">{{
                         $teacher->name }}</a></td>
                 <td class="py-2 px-4" style="vertical-align:middle">
                     <!-- {{-- <div class="d-inline-block text-truncate" style="max-width: 100px;"> --}} -->
@@ -32,7 +32,7 @@
                 </td>
                 <td class="py-2 px-4" style="vertical-align:middle">{{ $teacher->phone }}</td>
                 <td class="py-2 px-4" style="vertical-align:middle">{{ $teacher->salary }}</td>
-                <td class="py-2 px-4" style="vertical-align:middle">{{ $teacher->branch }}</td>
+                <td class="py-2 px-4" style="vertical-align:middle;text-transform: capitalize;">{{ $teacher->branch }}</td>
                 <td class="py-2" style="vertical-align:middle">
                     <div class="d-inline-block text-truncate" style="max-width: 100px;">
                         @if($teacher->students->isNotEmpty())

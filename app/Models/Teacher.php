@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuids;
+use Illuminate\Support\Str;
 
 class Teacher extends Model
 {
@@ -34,7 +35,7 @@ class Teacher extends Model
                 foreach ($studentIds as $value)
                 {
                     $uuid = Str::uuid()->toString();
-                    $teacher->students()->attach($value);
+                    $teacher->students()->attach($value, ['id' => $uuid]);
                 }
             }
         });

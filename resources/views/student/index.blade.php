@@ -17,14 +17,14 @@
           <th class="text-center py-0" style="vertical-align:middle">Gender</th>
           <th class="text-center py-0" style="vertical-align:middle">Course</th>
           <th class="text-center py-0" style="vertical-align:middle">Year</th>
-          <th class="text-center py-0" style="vertical-align:middle">Teacher</th>
+          <th class="text-center py-0" style="vertical-align:middle">Teachers</th>
           <th class="text-center ">Actions</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($students as $student)
           <tr class="shadow-lg">
-            <td class="py-2" style="vertical-align:middle"><a
+            <td class="py-2" style="vertical-align:middle;text-transform: capitalize;"><a
                 href="{{ route('students.show', [$student->id]) }}">{{ $student->name }}</a></td>
             <td class="py-2 px-4" style="vertical-align:middle">
               {{-- <div class="d-inline-block text-truncate" style="max-width: 100px;"> --}}
@@ -32,10 +32,10 @@
               {{-- </div> --}}
             </td>
             <td class="py-2 px-4" style="vertical-align:middle">{{ $student->phone }}</td>
-            <td class="py-2 px-4" style="vertical-align:middle">{{ $student->gender }}</td>
-            <td class="py-2 px-4" style="vertical-align:middle">{{ $student->course }}</td>
-            <td class="py-2 px-4" style="vertical-align:middle">{{ $student->year }}</td>
-            <td class="py-2" style="vertical-align:middle">
+            <td class="py-2 px-4" style="vertical-align:middle;text-transform: capitalize;">{{ $student->gender }}</td>
+            <td class="py-2 px-4" style="vertical-align:middle;text-transform: capitalize;">{{ $student->course }}</td>
+            <td class="py-2 px-4" style="vertical-align:middle;text-transform: capitalize;">{{ $student->year }}</td>
+            <td class="py-2 teachers-cell" style="vertical-align:middle" data-toggle="tooltip" title="@foreach ($student->teachers as $teacher) {{ $teacher->name }},@endforeach">
               <div class="d-inline-block text-truncate" style="max-width: 100px;">
                 @foreach ($student->teachers as $teacher)
                   {{ $teacher->name }}
@@ -68,7 +68,4 @@
     </div> --}}
   </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @endsection

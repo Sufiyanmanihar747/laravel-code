@@ -27,20 +27,20 @@
             @endif
             <div class="d-flex gap-3 justify-content-center">
               @if (Auth::user()->is_teacher == 'false')
-                    <a href="{{ route('students.index') }}" class="w-100 text-dark">
+                    <a href="{{ route('students.index') }}" class="w-100 text-dark text-decoration-none">
                         <div class="p-4 rounded-lg text-center" style=" background-color: lime; font-weight:bold;font-size: x-large;">
-                            <div>Student Record</div>
+                            <div>Students Record</div>
                             <div>{{DB::table('students')->count()}}</div>
                         </div>
                     </a>
               @else
-                <a href="{{ route('students.index') }}" class="w-100 text-dark">
+                <a href="{{ route('students.index') }}" class="w-100 text-dark text-decoration-none">
                     <div class="p-4 rounded-lg text-center" style=" background-color: lime; font-weight:bold;font-size: x-large;">
-                        <div>Student Record</div>
+                        <div>Students Record</div>
                         <div>{{DB::table('students')->count()}}</div>
                     </div>
                 </a>
-                <a href="{{ route('teachers.index') }}" class="w-100 text-dark">
+                <a href="{{ route('teachers.index') }}" class="w-100 text-dark text-decoration-none">
                     <div class="bg-warning p-4 rounded-lg text-center" style="font-weight:bold;font-size: x-large;">
                         <div>Teachers Record</div>
                         <div>{{DB::table('teachers')->count()}}</div>

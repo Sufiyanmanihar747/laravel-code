@@ -32,6 +32,7 @@
                 'class' => 'form-control h-75',
                 'disabled' => 'disabled',
                 'multiple' => 'multiple',
+                'style' =>'text-transform: capitalize;'
             ],
         ) !!}
       </div>
@@ -42,6 +43,7 @@
         {!! Form::text('name', $student->name, [
             'class' => 'form-control h-75',
             'disabled' => 'disabled',
+            'style' =>'text-transform: capitalize;',
         ]) !!}
       </div>
       <div class="form-group col-md-5">
@@ -49,6 +51,7 @@
         {!! Form::text('course', $student->course, [
             'class' => 'form-control h-75',
             'disabled' => 'disabled',
+            'style' =>'text-transform: capitalize;',
         ]) !!}
       </div>
     </div>
@@ -66,6 +69,7 @@
         {!! Form::text('year', $student->year, [
             'class' => 'form-control h-75',
             'disabled' => 'disabled',
+            'style' =>'text-transform: capitalize;',
         ]) !!}
       </div>
     </div>
@@ -83,6 +87,7 @@
         {!! Form::text('gender', $student->gender, [
             'class' => 'form-control h-75',
             'disabled' => 'disabled',
+            'style' =>'text-transform: capitalize;',
         ]) !!}
       </div>
 

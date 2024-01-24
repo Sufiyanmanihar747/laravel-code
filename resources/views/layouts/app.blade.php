@@ -25,7 +25,12 @@
   <link rel="stylesheet" href="{{ asset('assets/css/studentTable.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/passwordEye.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
-
+  <style>
+    .dataTables_scrollBody::-webkit-scrollbar {
+      width: 0 !important;
+      height: 0 !important;
+    }
+  </style>
 </head>
 
 <body style="background-color: #dfdfdf;">
@@ -45,22 +50,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
-            @if (request()->is('students*'))
-            <a href="{{route('students.index')}}" class="text-dark">Students</a>
-            @elseif(request()->is('teacher*'))
-            <a href="{{route('teachers.index')}}" class="text-dark">Teachers</a>
-            @elseif(request()->is('login*'))
+          @if (request()->is('students*'))
+            <a href="{{ route('students.index') }}" class="text-dark">Students</a>
+          @elseif(request()->is('teacher*'))
+            <a href="{{ route('teachers.index') }}" class="text-dark">Teachers</a>
+          @elseif(request()->is('login*'))
             {{ 'Login' }}
-            @elseif(request()->is('/'))
+          @elseif(request()->is('/'))
             {{ 'Home' }}
-            @else
+          @else
             {{ 'Registration' }}
-            @endif
+          @endif
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ms-auto align-items-center">
             <form class="form-inline my-2 my-lg-0" action="{{ route('students.index') }}">
-              <input class="form-control mr-sm-2" name="search" type="search"placeholder="Search name"
-                aria-label="Search" type="submit">
+              <input class="form-control mr-sm-2" name="search" type="search"placeholder="Search" aria-label="Search"
+                type="submit">
             </form>
 
             <!-- Authentication Links -->
@@ -115,42 +120,42 @@
   <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
 </body>
 <script>
-
   $(document).ready(function() {
-    $('#table').dataTable({
-        responsive: true
+    $('#table').DataTable({
+      scrollY: '400px',
+      //scrollCollapse: true,
+      // paging: true,
     });
 
     //This is for students
     console.log('this is ajax');
-        $('#course-student').change(function () {
-            console.log('this is running');
-            var courseId = $('#course-student').val();
-            console.log(courseId);
-            $.ajax({
-                type: 'GET',
-                url: '/getstudents/' + courseId,
-                dataType: 'json',
+    $('#course-student').change(function() {
+      console.log('this is running');
+      var courseId = $('#course-student').val();
+      console.log(courseId);
+      $.ajax({
+        type: 'GET',
+        url: '/getstudents/' + courseId,
+        dataType: 'json',
 
-                success: function (data) {
-                    console.log(data);
-                    var options = '';
-                    if ($.isEmptyObject(data)) {
-                        $('#student-select').html('');
-                    }
-                    else{
-                        $.each(data, function (key, value) {
-                            options += '<option value="' + key + '">' + value + '</option>';
-                        });
-                        $('#student-select').html(options);
-                    }
-                    console.log(data);
-                },
-                error: function () {
-                    console.log('Error fetching teachers');
-                }
+        success: function(data) {
+          console.log(data);
+          var options = '';
+          if ($.isEmptyObject(data)) {
+            $('#student-select').html('');
+          } else {
+            $.each(data, function(key, value) {
+              options += '<option value="' + key + '">' + value + '</option>';
             });
-        });
+            $('#student-select').html(options);
+          }
+          console.log(data);
+        },
+        error: function() {
+          console.log('Error fetching teachers');
+        }
+      });
+    });
   });
 
   function showCancelAlert() {
@@ -169,36 +174,36 @@
   });
 
   //This is for teachers
-    $(document).ready(function () {
-        console.log('this is ajax');
-        $('#course-select').change(function () {
-            console.log('this is running');
-            var courseId = $('#course-select').val();
-            console.log(courseId);
+  $(document).ready(function() {
+    console.log('this is ajax');
+    $('#course-select').change(function() {
+      console.log('this is running');
+      var courseId = $('#course-select').val();
+      console.log(courseId);
 
-            $.ajax({
-                type: 'GET',
-                url: '/getteachers/' + courseId,
-                dataType: 'json',
+      $.ajax({
+        type: 'GET',
+        url: '/getteachers/' + courseId,
+        dataType: 'json',
 
-                success: function (data) {
-                    var options = '';
-                    if ($.isEmptyObject(data)) {
-                        $('#teacher-select').html('');
-                    }
-                    else{
-                        $.each(data, function (key, value) {
-                            options += '<option value="' + key + '">' + value + '</option>';
-                        });
-                        $('#teacher-select').html(options);
-                    }
-                    console.log(data);
-                },
-                error: function () {
-                    console.log('Error fetching teachers');
-                }
+        success: function(data) {
+          var options = '';
+          if ($.isEmptyObject(data)) {
+            $('#teacher-select').html('');
+          } else {
+            $.each(data, function(key, value) {
+              options += '<option value="' + key + '">' + value + '</option>';
             });
-        });
+            $('#teacher-select').html(options);
+          }
+          console.log(data);
+        },
+        error: function() {
+          console.log('Error fetching teachers');
+        }
+      });
     });
+  });
 </script>
+
 </html>
